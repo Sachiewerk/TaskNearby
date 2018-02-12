@@ -65,6 +65,10 @@
     <string name="menu_item_delete">Delete</string>
     <string name="menu_item_edit">Edit</string>
     <string name="detail_delete_dialog_message">Delete this reminder?</string>
+    <string name="detail_msg_expired_cant_reset">This task has expired. You can edit the dates.</string>
+    <string name="detail_msg_task_resetted">Task has been reset.</string>
+    <string name="detail_msg_task_marked_done">Task has been marked done.</string>
+
 
     <!-- Saved places activity -->
     <string name="msg_no_saved_places">You\'ve not saved any places.\nClick this button to pick a place from map.</string>
@@ -72,6 +76,7 @@
     <string name="alarm_action_set_as_notification"><u>Set as Notification only</u></string>
     <string name="alarm_show_map">Show Map</string>
     <string name="alarm_show_image">Show Image</string>
+    <string name="reminder">Reminder</string>
 
     <!-- About activity -->
     <string name="about_developer_name_yash">Yash Verma</string>
@@ -158,5 +163,7 @@
     <!-- Used in About activity -->
     <string name="action_share">Share</string>
     <string name="feedback_text"><u>Help us improve?</u></string>
+    <string name="error_fix_location_settings">Location settings are inadequate, and cannot be fixed here. Fix in Settings.</string>
+    <string name="creator_msg_image_selection_failed">Image selection failed</string>
 
 </resources>
