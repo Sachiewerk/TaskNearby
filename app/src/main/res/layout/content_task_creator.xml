@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="@string/units"
+            android:text="@string/unit_metres"
             app:layout_constraintBaseline_toBaselineOf="@+id/edit_text_reminder_range"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

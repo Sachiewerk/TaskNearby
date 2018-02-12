@@ -118,7 +118,7 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
             long taskId = getIntent().getLongExtra(EXTRA_EDIT_MODE_TASK_ID, -1);
             taskBeingEdited = mTaskRepository.getTaskWithId(taskId);
             fillDataForEditing(taskBeingEdited);
-            getSupportActionBar().setTitle(getString(R.string.title_edit_task_reminder));
+            getSupportActionBar().setTitle(getString(R.string.title_edit_task));
         }
     }
 
