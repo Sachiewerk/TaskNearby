@@ -2,7 +2,7 @@
 <resources>
     <!-- Preferences -->
     <!-- Unit-->
-    <string name="pref_unit_key">units</string>
+    <string name="pref_unit_key" translatable="false">units</string>
     <string name="pref_unit_title">Units</string>
     <string-array name="pref_unit_values">
         <item>Metric(m)</item>
@@ -69,8 +69,8 @@
     <!-- Power Saver Mode -->
     <string name="pref_power_saver_key" translatable="false">power_saver</string>
     <string name="pref_power_saver_title">Power saver mode</string>
-    <string name="pref_power_saver_summary">For reduced battery consumption.
-        Turning this on will lower the accuracy.</string>
+    <string name="pref_power_saver_summary">Uses cellular network for reduced battery consumption.
+        Turning this on might lower the accuracy.</string>
 
     <!-- App Enable (Same as previous) -->
     <string name="pref_status_key" translatable="false">status</string>
@@ -78,10 +78,6 @@
     <string-array name="pref_status_values">
         <item>Enabled</item>
         <item>Disabled(No Reminders)</item>
-    </string-array>
-    <string-array name="pref_status_entries">
-        <item>enabled</item>
-        <item>disabled</item>
     </string-array>
     <string name="pref_status_enabled" translatable="false">enabled</string>
     <string name="pref_status_disabled" translatable="false">disabled</string>

@@ -140,7 +140,7 @@
 
     <!--#### About activity ####-->
     <string name="about_developer_name_yash">Yash Verma</string>
-    <string name="about_name_developer_name_shilpi">Shilpi Gupta</string>
+    <string name="about_name_developer_name_shilpi" translatable="false">Shilpi Gupta</string>
     <!-- Feedback -->
     <string name="email_subject" translatable="false">Task Nearby App</string>
     <string-array name="email_ids">
@@ -171,7 +171,7 @@
     <string name="flavor_name_premium">PREMIUM</string>
 
 
-    <!--#### Onboarding string resources ####-->
+    <!-- #### Onboarding string resources #### -->
     <string name="onboarding_skip">SKIP</string>
     <string name="onboarding_got_it">GOT IT</string>
     <string name="onboarding_next">NEXT</string>
