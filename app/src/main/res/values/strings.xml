@@ -19,6 +19,8 @@
     <string name="unit_metres">m</string>
     <string name="unit_yards">yd</string>
     <string name="reminder">Reminder</string>
+    <string name="time_format_am">AM</string>
+    <string name="time_format_pm">PM</string>
     <!--Distance formats-->
     <string name="distance_format_m">%d m</string>
     <string name="distance_format_km">%.2f km</string>
@@ -30,6 +32,7 @@
     <!--#### HomeScreen constants ####-->
     <string name="main_msg_no_tasks">You don\'t have any tasks. Click the + button to add new Tasks.</string>
     <!--NavDrawer constants-->
+    <string name="nav_header_tagline">Simple location reminders, Just for you.</string>
     <string name="nav_title_all_tasks">All Tasks</string>
     <string name="nav_title_settings">Settings</string>
     <string name="nav_title_about">About</string>
@@ -157,14 +160,21 @@
     <string name="feedback_text"><u>Help us improve?</u></string>
 
     <!--#### Upgrade activity ####-->
+    <string name="upgrade_feature_images">Add Images</string>
+    <string name="upgrade_feature_notes">Add Notes</string>
+    <string name="upgrade_feature_time">Set Time Intervals</string>
+    <string name="upgrade_feature_date">Set Date Intervals</string>
+    <string name="upgrade_feature_snooze">Custom Snooze Times</string>
+    <string name="upgrade_feature_voice">Voice alerts</string>
+    <string name="upgrade_feature_route">Generate Route (Coming Soon)</string>
     <string-array name="upgrade_premium_items">
-        <item>Add Images</item>
-        <item>Add Notes</item>
-        <item>Set Time intervals</item>
-        <item>Set Date intervals</item>
-        <item>Custom snooze times</item>
-        <item>Voice alerts</item>
-        <item>Generate Route (Coming soon)</item>
+        <item>@string/upgrade_feature_images</item>
+        <item>@string/upgrade_feature_notes</item>
+        <item>@string/upgrade_feature_time</item>
+        <item>@string/upgrade_feature_date</item>
+        <item>@string/upgrade_feature_snooze</item>
+        <item>@string/upgrade_feature_voice</item>
+        <item>@string/upgrade_feature_route</item>
     </string-array>
     <string name="upgrade_action_purchase">Purchase</string>
     <string name="msg_thanks_for_buying">Thanks for buying!</string>
@@ -176,7 +186,7 @@
     <string name="onboarding_got_it">GOT IT</string>
     <string name="onboarding_next">NEXT</string>
     <string-array name="onboarding_titles">
-        <item>Task Nearby</item>
+        <item>@string/app_name</item>
         <item>Personal Assistant</item>
         <item>Be productive</item>
     </string-array>
