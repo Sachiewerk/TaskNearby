@@ -12,9 +12,9 @@
         <item>Metric(m)</item>
         <item>Imperial(yd)</item>
     </string-array>
-    <string name="pref_unit_metric">Metric(m)</string>
-    <string name="pref_unit_imperial">Imperial(yd)</string>
-    <string name="pref_unit_default">Metric(m)</string>
+    <string name="pref_unit_metric" translatable="false">Metric(m)</string>
+    <string name="pref_unit_imperial" translatable="false">Imperial(yd)</string>
+    <string name="pref_unit_default" translatable="false">Metric(m)</string>
 
     <!--Distance Range -->
     <string name="pref_distance_range_key" translatable="false">distance_range</string>

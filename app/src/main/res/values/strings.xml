@@ -139,7 +139,7 @@
 
 
     <!--#### About activity ####-->
-    <string name="about_developer_name_yash">Yash Verma</string>
+    <string name="about_developer_name_yash" translatable="false">Yash Verma</string>
     <string name="about_name_developer_name_shilpi" translatable="false">Shilpi Gupta</string>
     <!-- Feedback -->
     <string name="email_subject" translatable="false">Task Nearby App</string>
