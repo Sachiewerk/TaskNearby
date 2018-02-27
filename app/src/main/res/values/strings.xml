@@ -134,9 +134,6 @@
 
     <!--#### Saved places activity ####-->
     <string name="saved_places_msg_empty">You\'ve not saved any places. Click this button to pick a place from map.</string>
-    <!-- TODO: This string has been changed to formatter instead of concatenation. BUT java code changes have been left for now.
-    Please fix this before pushing. -->
-    <!-- TODO: CRITICAL -->
     <string name="saved_places_dialog_msg_delete_place">Delete saved location \"%s\"?</string>
 
 

@@ -148,6 +148,9 @@
     <string name="reminder">تذكير</string>
     <string name="detail_format_reminder_range">%s في غضون</string>
     <string name="saved_places_msg_empty">لم تحفظ أي مكان. انقر على هذا الزر لاختيار مكان من الخريطة.</string>
-    <string name="saved_places_dialog_msg_delete_place">حذف الموقع المحفوظ"\s%"\؟</string>
+
+    <!-- TODO: With Arabic, we're facing a bug with these formats. One way to fix these is by using
+     BidiFormatter class. Find correct method and fix ASAP. -->
+    <!--<string name="saved_places_dialog_msg_delete_place">هل تريد حذف الموقع المحفوظ "\s%"\؟</string>-->
 
 </resources>
