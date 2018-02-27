@@ -196,4 +196,11 @@
         <item>No more forgetting of tasks you had to do on your way. Be tension free and enjoy.</item>
     </string-array>
 
+    <!--Settings Screen -->
+    <string name="preference_category_general">General</string>
+    <string name="preference_category_alarms">Alarms</string>
+
+
+
+
 </resources>
