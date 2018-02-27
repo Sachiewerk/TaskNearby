@@ -97,8 +97,7 @@ public class SavedPlacesActivity extends AppCompatActivity {
     private void deleteLocation(LocationModel location) {
         // Show an alert dialog.
         AlertDialog alertDialog = new AlertDialog.Builder(SavedPlacesActivity.this)
-                .setMessage(getString(R.string.saved_places_dialog_msg_delete_place) + location.getPlaceName()
-                        + "\"")
+                .setMessage(String.format(getString(R.string.saved_places_dialog_msg_delete_place), location.getPlaceName()))
                 .setPositiveButton(R.string.dialog_action_delete, (dialog, which) -> {
                     location.setIsHidden(1);
                     mTaskRepository.updateLocation(location);

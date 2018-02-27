@@ -114,7 +114,7 @@
     <string name="detail_alarm_off">off</string>
     <string name="detail_time_format">%s to %s</string>
     <string name="detail_time_anytime">Anytime during the day</string>
-    <string name="detail_date_format" translatable="false">%s  -  %s</string>
+    <string name="detail_date_format">%1$s  -  %2$s</string>
     <string name="detail_date_no_deadline">No deadline</string>
     <string name="detail_date_today">Today</string>
     <string name="detail_format_reminder_range">Within %s</string>
@@ -133,8 +133,11 @@
 
 
     <!--#### Saved places activity ####-->
-    <string name="saved_places_msg_empty">You\'ve not saved any places.\nClick this button to pick a place from map.</string>
-    <string name="saved_places_dialog_msg_delete_place">Delete saved location \"</string>
+    <string name="saved_places_msg_empty">You\'ve not saved any places. Click this button to pick a place from map.</string>
+    <!-- TODO: This string has been changed to formatter instead of concatenation. BUT java code changes have been left for now.
+    Please fix this before pushing. -->
+    <!-- TODO: CRITICAL -->
+    <string name="saved_places_dialog_msg_delete_place">Delete saved location \"%s\"?</string>
 
 
     <!--#### Alarm Activity constants ####-->

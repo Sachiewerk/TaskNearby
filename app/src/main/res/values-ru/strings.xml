@@ -75,6 +75,7 @@
     <string name="detail_alarm_format">звук</string>
     <string name="detail_alarm_on">включен</string>
     <string name="detail_alarm_off">выключен</string>
+    <string name="detail_date_format">%1$s  -  %2$s</string>
     <string name="detail_time_format">%s до %s</string>
     <string name="detail_time_anytime">В любое время дня</string>
     <string name="detail_date_no_deadline">Бессрочно</string>
@@ -93,7 +94,7 @@
     <string name="dialog_action_delete">Удалить</string>
     <string name="dialog_cancel">Отмена</string>
     <string name="saved_places_msg_empty">У Вас нет сохранённых мест. Нажмите кнопку для выбора.</string>
-    <string name="saved_places_dialog_msg_delete_place">Удалить сохранённое местоположение \"</string>
+    <string name="saved_places_dialog_msg_delete_place">Удалить сохранённое местоположение \"%s\"?</string>
     <string name="alarm_action_set_as_notification"><u>только уведомление</u></string>
     <string name="alarm_show_map">Показать карту</string>
     <string name="alarm_show_image">Показать изображение</string>
