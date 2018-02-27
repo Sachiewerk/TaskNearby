@@ -33,14 +33,13 @@
     <string name="dialog_permission_message">Для этого приложения требуется доступ к текущему местоположению. Разрешите доступ.</string>
     <string name="dialog_grant_permission_button">Разрешить доступ</string>
     <string name="error_fix_location_settings">Неправильные настройки местоположения. Исправить их в настройках</string>
-    <string-array name="task_states">
-        <item>Отложено</item>
-        <item>активный</item>
-        <item>предстоящий</item>
-        <item>Истекший</item>
-        <item>Готово</item>
-        <item>неизвестный</item>
-    </string-array>
+    <!-- task states -->
+    <string name="task_state_snoozed">Отложено</string>
+    <string name="task_state_active">активный</string>
+    <string name="task_state_upcoming">предстоящий</string>
+    <string name="task_state_expired">Истекший</string>
+    <string name="task_state_done">Готово</string>
+    <string name="task_state_invalid">неизвестный</string>
 
     <string name="creator_task_name_hint">Напомнить о</string>
     <string name="creator_location_title">Местоположение</string>
@@ -121,16 +120,11 @@
     <string name="onboarding_skip">Пропустить</string>
     <string name="onboarding_got_it">понял</string>
     <string name="onboarding_next">далее</string>
-    <string-array name="onboarding_titles">
-        <item>Task Nearby</item>
-        <item>Личный ассистент</item>
-        <item>быть продуктивным</item>
-    </string-array>
-    <string-array name="onboarding_descriptions">
-        <item>Настраиваемые напоминания о местоположении для вас</item>
-        <item>волшебно заботится обо всем: диапазон напоминаний, время будильника и т. д.</item>
-        <item>Не забывайте о задачах, которые вы должны выполнять на своем пути. Оставайтесь свободными от напряжения и наслаждайтесь.</item>
-    </string-array>
+    <string name="onboarding_title_pa">Личный ассистент</string>
+    <string name="onboarding_title_productive">быть продуктивным</string>
+    <string name="onboarding_descriptions_1">Настраиваемые напоминания о местоположении для вас</string>
+    <string name="onboarding_descriptions_2">волшебно заботится обо всем: диапазон напоминаний, время будильника и т. д.</string>
+    <string name="onboarding_descriptions_3">Не забывайте о задачах, которые вы должны выполнять на своем пути. Оставайтесь свободными от напряжения и наслаждайтесь.</string>
 
     <!-- Preferences -->
     <string name="pref_unit_title">единицы измерения</string>
@@ -155,4 +149,6 @@
 
     <string name="pref_power_saver_title">Режим сохранения энергии</string>
     <string name="pref_power_saver_summary">Использовать сотовую сеть вместо GPS, потребляет меньше энергии. Включение этого режима приведет к снижению точности.</string>
+    <string name="preference_category_general">"общий "</string>
+    <string name="preference_category_alarms">сигнализация</string>
 </resources>

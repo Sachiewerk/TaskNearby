@@ -51,13 +51,19 @@
     <!-- NOTE: Make sure that these are in the same order as the value of the constants
         that are defined for these. i.e. Snoozed, Active, Upcoming, Expired, Done -->
     <string-array name="task_states">
-        <item>Snoozed</item>
-        <item>Active</item>
-        <item>Upcoming</item>
-        <item>Expired</item>
-        <item>Done</item>
-        <item>Invalid</item>
+        <item>@string/task_state_snoozed</item>
+        <item>@string/task_state_active</item>
+        <item>@string/task_state_upcoming</item>
+        <item>@string/task_state_expired</item>
+        <item>@string/task_state_done</item>
+        <item>@string/task_state_invalid</item>
     </string-array>
+    <string name="task_state_snoozed">Snoozed</string>
+    <string name="task_state_active">Active</string>
+    <string name="task_state_upcoming">Upcoming</string>
+    <string name="task_state_expired">Expired</string>
+    <string name="task_state_done">Done</string>
+    <string name="task_state_invalid">Invalid</string>
 
 
     <!--#### Task Creator screen constants ####-->
@@ -187,20 +193,22 @@
     <string name="onboarding_next">NEXT</string>
     <string-array name="onboarding_titles">
         <item>@string/app_name</item>
-        <item>Personal Assistant</item>
-        <item>Be productive</item>
+        <item>@string/onboarding_title_pa</item>
+        <item>@string/onboarding_title_productive</item>
     </string-array>
+    <string name="onboarding_title_pa">Personal Assistant</string>
+    <string name="onboarding_title_productive">Be productive</string>
     <string-array name="onboarding_descriptions">
-        <item>Tailor-made location reminders for you.</item>
-        <item>Auto-magically takes care of everything: reminder distance, alarm timings and much more.</item>
-        <item>No more forgetting of tasks you had to do on your way. Be tension free and enjoy.</item>
+        <item>@string/onboarding_descriptions_1</item>
+        <item>@string/onboarding_descriptions_2</item>
+        <item>@string/onboarding_descriptions_3</item>
     </string-array>
+    <string name="onboarding_descriptions_1">Tailor-made location reminders for you.</string>
+    <string name="onboarding_descriptions_2">Auto-magically takes care of everything: reminder distance, alarm timings and much more.</string>
+    <string name="onboarding_descriptions_3">No more forgetting of tasks you had to do on your way. Be tension free and enjoy.</string>
 
     <!--Settings Screen -->
     <string name="preference_category_general">General</string>
     <string name="preference_category_alarms">Alarms</string>
-
-
-
 
 </resources>
