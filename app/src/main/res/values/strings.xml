@@ -133,7 +133,7 @@
 
 
     <!--#### Saved places activity ####-->
-    <string name="saved_places_msg_empty">You\'ve not saved any places. Click this button to pick a place from map.</string>
+    <string name="saved_places_msg_empty">You\'ve not saved any places.\nClick this button to pick a place from map.</string>
     <string name="saved_places_dialog_msg_delete_place">Delete saved location \"%s\"?</string>
 
 
