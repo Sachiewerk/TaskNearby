@@ -18,6 +18,7 @@ import java.util.List;
 
 import app.tasknearby.yashcreations.com.tasknearby.R;
 import app.tasknearby.yashcreations.com.tasknearby.TaskStateWrapper;
+import app.tasknearby.yashcreations.com.tasknearby.database.DbConstants;
 import app.tasknearby.yashcreations.com.tasknearby.models.TaskModel;
 
 /**
@@ -58,33 +59,29 @@ public class TaskStateUtil {
         // information about the time and comparing them with .compare() also compares time.
         // This causes a reminder expiring today to be told as expired.
 
-        // Check task's start date.
-        LocalDate startDate = task.getStartDate();
-        // If start date > today, return upcoming.Else, proceed.
-
-        if (startDate.compareTo(today) > 0)
-            return STATE_UPCOMING;
-
         // Check end date.
         LocalDate endDate = task.getEndDate();
         // If end date < today, retun expired. Else, proceed.
-
         if (endDate != null && endDate.compareTo(today) < 0) {
             return STATE_EXPIRED;
         }
+
+        // Check task's start date.
+        LocalDate nextStartDate = task.getNextStartDate();
+        // If start date > today, return upcoming.Else, proceed.
+        if (nextStartDate.compareTo(today) > 0)
+            return STATE_UPCOMING;
 
         LocalTime currentTime = LocalTime.fromDateFields(new Date());
         // Check start time.
         LocalTime startTime = task.getStartTime();
         // If start time > current time, it is upcoming. Else proceed.
-
         if (startTime.compareTo(currentTime) > 0)
             return STATE_UPCOMING;
 
         // Check end Time.
         LocalTime endTime = task.getEndTime();
         // If end time is less than current time, it is expired. Else, proceed.
-
         if (endTime != null && endTime.compareTo(currentTime) < 0) {
             if (endDate != null && endDate.compareTo(today) == 0) {
                 return STATE_EXPIRED;
@@ -92,6 +89,10 @@ public class TaskStateUtil {
                 return STATE_UPCOMING;
             }
         }
+
+        if(task.getRepeatType() == DbConstants.REPEAT_DAILY
+                && !isRepeatDailyEligible(task.getRepeatCode()))
+            return STATE_UPCOMING;
 
         // Check if snoozed.
         // Get snooze time from settings.
@@ -218,5 +219,12 @@ public class TaskStateUtil {
             taskState = taskStateNames.length - 1;
         }
         return taskStateNames[taskState];
+    }
+
+    private static boolean isRepeatDailyEligible(int repeatCode) {
+        // Assumes dayOfWeek(Monday) = 1.
+        LocalDate today = LocalDate.fromDateFields(new Date());
+        int numBitShifts = today.getDayOfWeek() - 1;
+        return ((repeatCode & (1 << numBitShifts)) != 0);
     }
 }

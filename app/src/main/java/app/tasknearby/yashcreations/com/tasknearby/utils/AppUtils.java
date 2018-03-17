@@ -174,4 +174,5 @@ public final class AppUtils {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(context.getString(R.string.pref_has_user_seen_onboarding), false);
     }
+
 }
