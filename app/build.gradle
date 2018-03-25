@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+// Firebase performance monitoring plugin.
+apply plugin: 'com.google.firebase.firebase-perf'
+// For Crashlytics
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -33,13 +37,14 @@ android {
     }
 }
 
-def supportLibVersion = "27.0.2"
-def playServicesVersion = "11.8.0"
+def supportLibVersion = "27.1.0"
+def playServicesVersion = "12.0.0"
 def archRoomVersion = "1.0.0"
 def jodaTimeVersion = "2.9.9.1"
-def constraintLayoutVersion = "1.1.0-beta3"
+def constraintLayoutVersion = "1.1.0-beta6"
 def picassoVersion = "2.5.2"
 def billingLibVersion = "1.0"
+def crashlyticsVersion = "2.9.1"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -55,7 +60,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-places:$playServicesVersion"
 
     implementation "com.google.firebase:firebase-core:$playServicesVersion"
-
+    implementation "com.google.firebase:firebase-perf:$playServicesVersion"
     // Room
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$archRoomVersion"
@@ -77,7 +82,9 @@ dependencies {
 
     implementation "com.android.billingclient:billing:$billingLibVersion"
 
-    dependencies{
+    implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
+
+    dependencies {
         compile 'com.github.TouchBoarder:weekdays-buttons-bar:v1.0.2'
     }
 }
