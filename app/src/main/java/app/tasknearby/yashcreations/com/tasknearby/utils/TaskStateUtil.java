@@ -90,7 +90,7 @@ public class TaskStateUtil {
             }
         }
 
-        if(task.getRepeatType() == DbConstants.REPEAT_DAILY
+        if (task.getRepeatType() == DbConstants.REPEAT_DAILY
                 && !isRepeatDailyEligible(task.getRepeatCode()))
             return STATE_UPCOMING;
 
@@ -150,7 +150,7 @@ public class TaskStateUtil {
      * It returns a sorted list of tasks wrapped with their state.
      */
     public static ArrayList<TaskStateWrapper> getTasksStateListWrapper(Context context,
-                                                                       List<TaskModel> tasks) {
+            List<TaskModel> tasks) {
 
         // Get the state lists.
         ArrayList<List<TaskModel>> statesList = getTaskListState(context, tasks);
@@ -224,7 +224,7 @@ public class TaskStateUtil {
     private static boolean isRepeatDailyEligible(int repeatCode) {
         // Assumes dayOfWeek(Monday) = 1.
         LocalDate today = LocalDate.fromDateFields(new Date());
-        int numBitShifts = today.getDayOfWeek() - 1;
-        return ((repeatCode & (1 << numBitShifts)) != 0);
+        int dayCode = WeekdayCodeUtils.getDayCodeByIndex(today.getDayOfWeek());
+        return ((repeatCode & dayCode) != 0);
     }
 }

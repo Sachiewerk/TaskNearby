@@ -21,7 +21,7 @@ import app.tasknearby.yashcreations.com.tasknearby.notification.NotificationHelp
 public final class TaskActionUtils {
 
     public static void onTaskMarkedDone(@NonNull Context appContext, TaskModel task) {
-        task.setLastTriggered(new LocalDate());
+        task.setLastTriggered(LocalDate.fromDateFields(new Date()));
         if (task.getRepeatType() == DbConstants.REPEAT_DAILY) {
             LocalDate today = LocalDate.fromDateFields(new Date());
             // If it's a repeatable reminder we've to check that it's last date is not today. If it
@@ -30,9 +30,7 @@ public final class TaskActionUtils {
                 task.setIsDone(1);
             } else {
                 // If the reminder is done only for today, we'll increment the nextStartDate only.
-                LocalDate nextStartDate = task.getNextStartDate();
-                nextStartDate = nextStartDate.plusDays(1);
-                task.setNextStartDate(nextStartDate);
+                task.setNextStartDate(today.plusDays(1));
             }
         } else {
             // Mark it as done for non-repeatable reminders.
