@@ -45,6 +45,7 @@ def constraintLayoutVersion = "1.1.0-beta6"
 def picassoVersion = "2.5.2"
 def billingLibVersion = "1.0"
 def crashlyticsVersion = "2.9.1"
+def lifecycleExtVersion = "1.1.1"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -66,7 +67,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$archRoomVersion"
 
     // LiveData and ViewModel
-    implementation "android.arch.lifecycle:extensions:$archRoomVersion"
+    implementation "android.arch.lifecycle:extensions:$lifecycleExtVersion"
     // Default
 //    annotationProcessor "android.arch.lifecycle:compiler:$archRoomVersion"
     // Recommended with Java 8
