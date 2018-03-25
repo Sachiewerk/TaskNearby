@@ -547,6 +547,9 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
             mTaskRepository.updateLocation(mSelectedLocation);
         } else {
             mSelectedLocation.setPlaceName(locationName);
+            // Need to set this id because if it's a location chosen from saved places, it
+            // already has an id that causes problems in inserting it again.
+            mSelectedLocation.setId(0);
             // TODO: Check if place with same name already exists to improve UX.
             // Doing this when place picker gave the location. i.e. new location with use_count = 1.
             locationId = mTaskRepository.saveLocation(mSelectedLocation);
