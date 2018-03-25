@@ -162,7 +162,6 @@ public class NotificationHelper {
     private void createNotificationChannels() {
         NotificationChannel remindersChannel = new NotificationChannel(CHANNEL_REMINDER,
                 "Task Reminders", NotificationManager.IMPORTANCE_HIGH);
-        // TODO: Check on O and uncomment.
         // remindersChannel.setShowBadge(true);
         remindersChannel.enableLights(true);
         remindersChannel.enableVibration(true);
