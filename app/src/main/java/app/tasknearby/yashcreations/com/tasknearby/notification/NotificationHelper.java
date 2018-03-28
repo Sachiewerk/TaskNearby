@@ -184,7 +184,7 @@ public class NotificationHelper {
         mNotificationManager.createNotificationChannel(discountChannel);
     }
 
-    public void notifyAboutDiscount(String title, String message) {
+    public void notifyAboutDiscount(String title, String message, String bigText) {
         NotificationCompat.Builder nb = new NotificationCompat
                 .Builder(mAppContext, CHANNEL_DISCOUNT)
                 .setContentTitle(title)
@@ -198,6 +198,10 @@ public class NotificationHelper {
                 // These are deprecated in O. (Using notification channels for them.)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setPriority(Notification.PRIORITY_DEFAULT);
+
+        if (bigText != null) {
+            nb.setStyle(new NotificationCompat.BigTextStyle().bigText(bigText));
+        }
 
         if (Build.VERSION.SDK_INT >= 21) {
             nb.setSmallIcon(R.drawable.ic_stat_notification_small)
@@ -213,7 +217,7 @@ public class NotificationHelper {
 
     private PendingIntent getDiscountPi() {
         Intent intent = new Intent(mAppContext, UpgradeActivity.class);
-        intent.putExtra("DiscountNotification", true);
+        intent.putExtra(NotificationConstants.EXTRA_DISCOUNT_NOTIFICATION, true);
         return PendingIntent.getActivity(mAppContext, 1000090, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
