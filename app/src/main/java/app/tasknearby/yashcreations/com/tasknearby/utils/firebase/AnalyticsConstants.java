@@ -21,6 +21,8 @@ public class AnalyticsConstants {
     public static final String ANALYTICS_NOTIFICATION_SHOWN = "notification_shown";
     public static final String ANALYTICS_NOTIFICATION_MARK_DONE = "notification_mark_done";
     public static final String ANALYTICS_NOTIFICATION_SNOOZE = "notification_snooze";
+    public static final String NOTIFICATION_DISCOUNT_SHOWN = "notification_discount_shown";
+    public static final String NOTIFICATION_DISCOUNT_CLICK = "notification_discount_click";
 
     /**
      * Constants for navigation button from detail activity.
