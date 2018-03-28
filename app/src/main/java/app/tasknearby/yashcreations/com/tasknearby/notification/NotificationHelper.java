@@ -184,7 +184,7 @@ public class NotificationHelper {
         mNotificationManager.createNotificationChannel(discountChannel);
     }
 
-    public void notifyAboutDiscount(String title, String message, String bigText) {
+    public void notifyAboutDiscount(String title, String message) {
         NotificationCompat.Builder nb = new NotificationCompat
                 .Builder(mAppContext, CHANNEL_DISCOUNT)
                 .setContentTitle(title)
@@ -195,13 +195,10 @@ public class NotificationHelper {
                 .setAutoCancel(true)
                 .setShowWhen(true)
                 .setOnlyAlertOnce(true)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(""))
                 // These are deprecated in O. (Using notification channels for them.)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setPriority(Notification.PRIORITY_DEFAULT);
-
-        if (bigText != null) {
-            nb.setStyle(new NotificationCompat.BigTextStyle().bigText(bigText));
-        }
 
         if (Build.VERSION.SDK_INT >= 21) {
             nb.setSmallIcon(R.drawable.ic_stat_notification_small)
