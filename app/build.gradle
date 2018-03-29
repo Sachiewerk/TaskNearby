@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 // Firebase performance monitoring plugin.
 apply plugin: 'com.google.firebase.firebase-perf'
-// For Crashlytics
-apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -82,8 +80,6 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
     implementation "com.android.billingclient:billing:$billingLibVersion"
-
-    implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
 
     dependencies {
         compile 'com.github.TouchBoarder:weekdays-buttons-bar:v1.0.2'
