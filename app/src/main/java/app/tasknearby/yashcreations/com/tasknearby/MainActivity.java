@@ -36,11 +36,9 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import app.tasknearby.yashcreations.com.tasknearby.billing.BillingManager;
 import app.tasknearby.yashcreations.com.tasknearby.billing.ProductIdConstants;
-import app.tasknearby.yashcreations.com.tasknearby.fcm.TokenRefresherService;
 import app.tasknearby.yashcreations.com.tasknearby.fcm.TopicSubscriber;
 import app.tasknearby.yashcreations.com.tasknearby.fragments.TasksFragment;
 import app.tasknearby.yashcreations.com.tasknearby.services.FusedLocationService;
@@ -234,20 +232,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView
      * Sets the version preference.
      */
     public void setVersionPreference() {
-
-        if (!prefs.getString(getString(R.string.pref_version_key), "v4.0.1")
-                .equals(getString(R.string.app_version))) {
-            // This is an upgrade from a previous version of this app. Hence, we need to make
-            // sure that FCM is setup.
-            startService(new Intent(this, TokenRefresherService.class));
-        }
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(getString(R.string.pref_version_key), getString(R.string.app_version));
         editor.apply();
     }
 
+    /**
+     * It's fine to subscribe on app start, see this: https://stackoverflow.com/a/40055267/4857588
+     */
     private void setupFcm() {
-
+        TopicSubscriber.subscribeToAllTopics();
     }
 
     @Override
