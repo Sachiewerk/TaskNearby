@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 // Firebase performance monitoring plugin.
 apply plugin: 'com.google.firebase.firebase-perf'
+// For Crashlytics
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -65,6 +67,8 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$playServicesVersion"
     implementation "com.google.firebase:firebase-perf:$playServicesVersion"
     implementation "com.google.firebase:firebase-messaging:$playServicesVersion"
+    implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
+
     // Room
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$archRoomVersion"
