@@ -67,6 +67,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$playServicesVersion"
     implementation "com.google.firebase:firebase-perf:$playServicesVersion"
     implementation "com.google.firebase:firebase-messaging:$playServicesVersion"
+    
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
 
     // Room
