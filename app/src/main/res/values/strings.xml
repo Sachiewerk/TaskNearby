@@ -214,4 +214,7 @@
     <string name="preference_category_general">General</string>
     <string name="preference_category_alarms">Alarms</string>
 
+    <string name="error_range_zero">Please select reminder range greater than zero.</string>
+    <string name="error_range_max">Please select reminder range less than 50,000.</string>
+    <string name="error_range_empty">Please enter a valid reminder range.</string>
 </resources>

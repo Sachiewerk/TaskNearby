@@ -473,7 +473,7 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
      * Validates the input entered by the user.
      */
     private boolean isInputValid() {
-        String errorMsg;
+        String errorMsg = null;
         if (TextUtils.isEmpty(taskNameInput.getText())) {
             errorMsg = getString(R.string.creator_error_empty_taskname);
         } else if (TextUtils.isEmpty(locationNameInput.getText()) || !hasSelectedLocation) {
@@ -482,9 +482,10 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
             errorMsg = getString(R.string.creator_error_empty_range);
         } else if (repeatSwitch.isChecked() && (int) weekdaysStub.getTag() == 0) {
             errorMsg = getString(R.string.creator_error_no_weekday);
-        } else {
+        } else if(AppUtils.validateReminderRange(this, reminderRangeInput.getText().toString())){
             return true;
         }
+        if(errorMsg != null && !errorMsg.isEmpty())
         Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
         return false;
     }

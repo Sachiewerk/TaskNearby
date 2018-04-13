@@ -89,7 +89,7 @@ public class AlarmActivity extends AppCompatActivity implements OnMapReadyCallba
 
         // Check if voice reminders are enabled.
         SharedPreferences defaultPref = PreferenceManager.getDefaultSharedPreferences(this);
-        isVoiceReminderEnabled= defaultPref.getBoolean(getString(R.string
+        isVoiceReminderEnabled = defaultPref.getBoolean(getString(R.string
                 .pref_voice_alarm_key), false);
         if (isVoiceReminderEnabled) {
             mVoiceAlarmRinger = new VoiceAlarmRinger(this, mTask, mTaskLocation);
@@ -245,7 +245,9 @@ public class AlarmActivity extends AppCompatActivity implements OnMapReadyCallba
         if (isVoiceReminderEnabled) {
             mVoiceAlarmRinger.startSpeaking();
         } else {
-            mAlarmVibrator.startVibrating();
+            if (mAlarmVibrator.mPattern.length != 0) {
+                mAlarmVibrator.startVibrating();
+            }
             mAlarmRinger.startRinging();
         }
     }

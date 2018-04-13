@@ -173,6 +173,8 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 UpgradeActivity.show(getActivity());
                 return false;
+            } else if (!AppUtils.validateReminderRange(getActivity(), distance)) {
+                return false;
             } else {
                 return true;
             }

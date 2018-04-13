@@ -31,7 +31,7 @@ public class AlarmVibrator {
      * 4. Stop for 1 sec.
      * If repeat has been set to 0, this pattern repeats itself. -1 means it won't.
      */
-    private long[] mPattern;
+   public long[] mPattern;
     private int mRepeat = 0;
 
     /**
@@ -84,7 +84,7 @@ public class AlarmVibrator {
                 mRepeat = -1;
                 break;
             default:
-                mPattern = new long[]{0, 1, 0, 1};
+                mPattern = new long[]{};
                 mRepeat = -1;
                 break;
         }

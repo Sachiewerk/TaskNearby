@@ -7,8 +7,10 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.android.billingclient.api.Purchase;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -222,5 +224,21 @@ public final class AppUtils {
             default:
                 return "";
         }
+    }
+
+    public static boolean validateReminderRange(Context context, String input) {
+        if (input.equals(null) || input.isEmpty()) {
+            Toast.makeText(context, R.string.error_range_empty, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        int value = Integer.parseInt(input);
+        if (value == 0) {
+            Toast.makeText(context, R.string.error_range_zero, Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (value >= 50000) {
+            Toast.makeText(context, R.string.error_range_max, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }
