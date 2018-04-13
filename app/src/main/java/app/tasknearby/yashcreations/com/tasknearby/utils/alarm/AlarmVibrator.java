@@ -84,7 +84,7 @@ public class AlarmVibrator {
                 mRepeat = -1;
                 break;
             default:
-                mPattern = new long[]{};
+                mPattern = new long[]{0, 1, 0, 1};
                 mRepeat = -1;
                 break;
         }
