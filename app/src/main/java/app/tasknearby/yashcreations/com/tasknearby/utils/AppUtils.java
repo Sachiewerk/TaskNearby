@@ -235,9 +235,6 @@ public final class AppUtils {
         if (value == 0) {
             Toast.makeText(context, R.string.error_range_zero, Toast.LENGTH_SHORT).show();
             return false;
-        } else if (value >= 50000) {
-            Toast.makeText(context, R.string.error_range_max, Toast.LENGTH_SHORT).show();
-            return false;
         }
         return true;
     }
