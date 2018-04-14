@@ -104,9 +104,18 @@ public class SettingsActivity extends AppCompatActivity {
                 // set in the preferences xml file and the summary that has been set to these
                 // preferences are static.
             } else if (preference instanceof RingtonePreference) {
-                onPreferenceChange(preference, PreferenceManager.getDefaultSharedPreferences
-                        (preference.getContext()).getString(preference.getKey(), Settings.System
-                        .DEFAULT_ALARM_ALERT_URI.getPath()));
+                String tonePath = PreferenceManager.getDefaultSharedPreferences(preference
+                        .getContext()).getString(preference.getKey(), Settings.System
+                        .DEFAULT_ALARM_ALERT_URI.toString());
+                if (tonePath == null || tonePath.isEmpty()) {
+                    // Will use the ringtone now instead of AlarmTone or the preferred tone.
+                    Log.i(TAG, "Alarm tone uri was null. Will use the Ringtone now.");
+                    tonePath = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+                            .toString();
+                    // Do we need to resort to the old MediaPlayer method or is it always != null.
+                    // throw new IllegalArgumentException("There's no default AlarmTone supplied.");
+                }
+                onPreferenceChange(preference, tonePath);
 
             } else if (preference instanceof EditTextPreference) {
                 // Default reminder distance preference here.
