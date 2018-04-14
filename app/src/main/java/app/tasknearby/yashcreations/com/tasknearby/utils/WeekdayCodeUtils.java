@@ -1,5 +1,8 @@
 package app.tasknearby.yashcreations.com.tasknearby.utils;
 
+import org.joda.time.DateTimeConstants;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -50,4 +53,18 @@ public class WeekdayCodeUtils {
         return getDayCodeByIndex(ourDayIndex);
     }
 
+    /**
+     * Returns the list of indices of days when repeat code is eligible, assuming MONDAY as
+     * first day.
+     */
+    public static ArrayList<Integer> getDayIndexListToRepeat(int repeatCode) {
+        ArrayList<Integer> dayIndices = new ArrayList<>();
+        // MONDAY is day = 1.
+        for (int day = DateTimeConstants.MONDAY; day <= DateTimeConstants.SUNDAY; day++) {
+            if ((repeatCode & getDayCodeByIndex(day)) != 0) {
+                dayIndices.add(day);
+            }
+        }
+        return dayIndices;
+    }
 }
