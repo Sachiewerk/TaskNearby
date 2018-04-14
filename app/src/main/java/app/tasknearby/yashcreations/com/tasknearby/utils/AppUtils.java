@@ -21,6 +21,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -187,16 +188,16 @@ public final class AppUtils {
      */
     public static String getRepeatDisplayString(Context appContext, TaskModel task) {
         StringBuilder repeatMsgBuilder = new StringBuilder();
-        boolean allDaysFlag = true;
-        for (int i = DateTimeConstants.MONDAY; i <= DateTimeConstants.SUNDAY; ++i) {
-            int dayCode = WeekdayCodeUtils.getDayCodeByIndex(i);
-            if ((task.getRepeatCode() & dayCode) != 0) {
+        boolean allDaysFlag = false;
+        ArrayList<Integer> dayIndices = WeekdayCodeUtils.getDayIndexListToRepeat(task.getRepeatCode());
+        if(dayIndices.size() == 7) {
+            allDaysFlag = true;
+        } else {
+            for (int day : dayIndices) {
                 if (repeatMsgBuilder.length() != 0) {
                     repeatMsgBuilder.append(", ");
                 }
-                repeatMsgBuilder.append(getWeekdayNameById(i));
-            } else {
-                allDaysFlag = false;
+                repeatMsgBuilder.append(getWeekdayNameById(day));
             }
         }
         return allDaysFlag ? "Every day" : "Every " + repeatMsgBuilder.toString();
