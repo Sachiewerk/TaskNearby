@@ -243,7 +243,7 @@ public class AlarmActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onStart() {
         super.onStart();
         if (isVoiceReminderEnabled) {
-            mVoiceAlarmRinger.startSpeaking();
+            mVoiceAlarmRinger.startVoiceAlarms();
         } else {
             if (mAlarmVibrator.mPattern.length != 0) {
                 mAlarmVibrator.startVibrating();
@@ -256,7 +256,7 @@ public class AlarmActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onStop() {
         super.onStop();
         if (isVoiceReminderEnabled) {
-            mVoiceAlarmRinger.stopSpeaking();
+            mVoiceAlarmRinger.stopVoiceAlarms();
         } else {
             mAlarmVibrator.stopVibrationg();
             mAlarmRinger.stopRinging();
