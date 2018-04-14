@@ -220,5 +220,6 @@
 
     <string name="app_enabled">Task Nearby has been turned on.</string>
     <string name="app_disabled">Task Nearby has been turned off.</string>
+    <string name="feature_upgrade_to_premium">Please upgrade to access this feature.</string>
 
 </resources>

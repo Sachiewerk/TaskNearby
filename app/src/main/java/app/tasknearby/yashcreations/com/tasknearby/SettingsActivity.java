@@ -178,7 +178,7 @@ public class SettingsActivity extends AppCompatActivity {
             } else if (!distance.equals(getString(R.string.pref_distance_range_default))
                     && !AppUtils.isPremiumUser(getActivity())) {
                 // It can only be saved in the premium version.
-                Toast.makeText(getActivity(), "Please upgrade to access this feature.",
+                Toast.makeText(getActivity(), R.string.feature_upgrade_to_premium,
                         Toast.LENGTH_SHORT).show();
                 UpgradeActivity.show(getActivity());
                 return false;
