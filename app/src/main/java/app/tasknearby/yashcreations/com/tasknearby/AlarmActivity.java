@@ -245,9 +245,7 @@ public class AlarmActivity extends AppCompatActivity implements OnMapReadyCallba
         if (isVoiceReminderEnabled) {
             mVoiceAlarmRinger.startVoiceAlarms();
         } else {
-            if (mAlarmVibrator.mPattern.length != 0) {
-                mAlarmVibrator.startVibrating();
-            }
+            mAlarmVibrator.startVibrating();
             mAlarmRinger.startRinging();
         }
     }

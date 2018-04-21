@@ -75,7 +75,7 @@
     <string name="creator_location_name_hint">Location Name</string>
     <string name="creator_reminder_range">Reminder range :</string>
     <string name="creator_reminder_range_default" translatable="false">75</string>
-    <string name="creator_alarm_title">Alarm Tone</string>
+    <string name="creator_alarm_title">Alarm</string>
     <string name="creator_note_hint">Add a note</string>
     <string name="creator_time_title">Anytime</string>
     <string name="creator_time_start_title">From</string>
@@ -214,6 +214,7 @@
     <string name="preference_category_general">General</string>
     <string name="preference_category_alarms">Alarms</string>
 
+    <!-- These are to be added in other language -->
     <string name="error_range_zero">Please select reminder range greater than zero.</string>
     <string name="error_range_max">Please select reminder range less than 50,000.</string>
     <string name="error_range_empty">Please enter a valid reminder range.</string>

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    private boolean isAppIntiated;
+    private boolean isAppInitialized = false;
 
     /**
      * Stores the types of location services the client is interested in using. Used for checking
@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
     @Override
     protected void onStart() {
-        isAppIntiated = false;
         if (checkPermissions()) {
             // Check permissions will automatically request permissions if they're not present.
             startServiceIfAppEnabled();
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             // Put enabled string in SharedPreferences.
             editor.putString(getString(R.string.pref_status_key),
                     getString(R.string.pref_status_enabled));
-            if(isAppIntiated) {
+            if(isAppInitialized) {
                 Toast.makeText(this, R.string.app_enabled, Toast.LENGTH_SHORT).show();
             }
             mFirebaseAnalytics.logEvent(AnalyticsConstants.ANALYTICS_APP_ENABLED, new Bundle());
@@ -153,13 +152,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             // Put disabled string in shared preferences.
             editor.putString(getString(R.string.pref_status_key),
                     getString(R.string.pref_status_disabled));
-            if(isAppIntiated) {
+            if(isAppInitialized) {
                 Toast.makeText(this, R.string.app_disabled, Toast.LENGTH_SHORT).show();
             }
             mFirebaseAnalytics.logEvent(AnalyticsConstants.ANALYTICS_APP_DISABLED, new Bundle());
             AppUtils.stopService(this);
         }
-        isAppIntiated = true;
+        isAppInitialized = true;
         editor.apply();
     }
 

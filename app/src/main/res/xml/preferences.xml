@@ -32,7 +32,7 @@
         <RingtonePreference
             android:key="@string/pref_alarm_tone_key"
             android:ringtoneType="all"
-            android:title="@string/creator_alarm_title" />
+            android:title="@string/pref_alarm_tone_title" />
 
         <!-- Vibrate preference. -->
         <ListPreference

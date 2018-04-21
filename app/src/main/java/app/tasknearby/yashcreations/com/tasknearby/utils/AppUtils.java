@@ -197,37 +197,14 @@ public final class AppUtils {
                 if (repeatMsgBuilder.length() != 0) {
                     repeatMsgBuilder.append(", ");
                 }
-                repeatMsgBuilder.append(getWeekdayNameById(day));
+                repeatMsgBuilder.append(WeekdayCodeUtils.getWeekdayNameById(day));
             }
         }
         return allDaysFlag ? "Every day" : "Every " + repeatMsgBuilder.toString();
     }
 
-    /**
-     * Returns the weekday's name by getting the index. 1 index is for Monday.
-     */
-    private static String getWeekdayNameById(int index) {
-        switch (index) {
-            case 1:
-                return "Monday";
-            case 2:
-                return "Tuesday";
-            case 3:
-                return "Wednesday";
-            case 4:
-                return "Thursday";
-            case 5:
-                return "Friday";
-            case 6:
-                return "Saturday";
-            case 7:
-                return "Sunday";
-            default:
-                return "";
-        }
-    }
 
-    public static boolean validateReminderRange(Context context, String input) {
+    public static boolean isReminderRangeValid(Context context, String input) {
         if (input.equals(null) || input.isEmpty()) {
             Toast.makeText(context, R.string.error_range_empty, Toast.LENGTH_SHORT).show();
             return false;

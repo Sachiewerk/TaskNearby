@@ -75,7 +75,8 @@ public class VoiceAlarmRinger implements TextToSpeech.OnInitListener {
 
                 @Override
                 public void onDone(String utteranceId) {
-                    startSound();
+                    // Playing end sound.
+                    startSound(false);
                 }
 
                 @Override
@@ -113,20 +114,26 @@ public class VoiceAlarmRinger implements TextToSpeech.OnInitListener {
         snackbar.show();
     }
 
-    private void startSound() {
+    private void startSound(boolean isStartSound) {
         mediaPlayer = MediaPlayer.create(mContext, R.raw.sound);
+        mediaPlayer.setOnCompletionListener(mp -> {
+            // Speak voice alarm only if start sound is played.
+            if(isStartSound) {
+                startSpeaking();
+            }
+        });
         mediaPlayer.start();
     }
 
     private void stopSound() {
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
+            mediaPlayer.release();
         }
     }
 
     public void startVoiceAlarms() {
-        startSound();
-        startSpeaking();
+        startSound(true);
     }
 
     public void stopVoiceAlarms() {

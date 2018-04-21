@@ -31,7 +31,7 @@ public class AlarmVibrator {
      * 4. Stop for 1 sec.
      * If repeat has been set to 0, this pattern repeats itself. -1 means it won't.
      */
-   public long[] mPattern;
+    private long[] mPattern;
     private int mRepeat = 0;
 
     /**
@@ -47,6 +47,9 @@ public class AlarmVibrator {
      * Starts the vibration as per the user's preferences.
      */
     public void startVibrating() {
+        // If the settings is 'Don't Vibrate'.
+        if (mPattern.length == 0)
+            return;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             mVibrator.vibrate(mPattern, mRepeat);
         } else {

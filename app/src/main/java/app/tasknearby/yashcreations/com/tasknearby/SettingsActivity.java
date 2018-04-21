@@ -32,7 +32,6 @@ import static app.tasknearby.yashcreations.com.tasknearby.R.string.pref_power_sa
 import static app.tasknearby.yashcreations.com.tasknearby.R.string.pref_snooze_time_key;
 import static app.tasknearby.yashcreations.com.tasknearby.R.string.pref_unit_key;
 import static app.tasknearby.yashcreations.com.tasknearby.R.string.pref_vibrate_key;
-import static app.tasknearby.yashcreations.com.tasknearby.R.string.pref_voice_alarm_key;
 
 /**
  * Manages the settings/preferences.
@@ -182,7 +181,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 UpgradeActivity.show(getActivity());
                 return false;
-            } else if (!AppUtils.validateReminderRange(getActivity(), distance)) {
+            } else if (!AppUtils.isReminderRangeValid(getActivity(), distance)) {
                 return false;
             } else {
                 return true;

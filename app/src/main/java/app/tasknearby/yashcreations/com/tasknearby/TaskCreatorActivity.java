@@ -491,9 +491,13 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
             errorMsg = getString(R.string.creator_error_empty_range);
         } else if (repeatSwitch.isChecked() && (int) weekdaysStub.getTag() == 0) {
             errorMsg = getString(R.string.creator_error_no_weekday);
-        } else if (AppUtils.validateReminderRange(this, reminderRangeInput.getText().toString())) {
+        } else if (!AppUtils.isReminderRangeValid(this, reminderRangeInput.getText().toString())) {
+
+        } else {
             return true;
         }
+        // If reminder range is not valid, no toast has to be shown. In that case, error msg will
+        // be empty.
         if (errorMsg != null && !errorMsg.isEmpty())
             Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
         return false;
