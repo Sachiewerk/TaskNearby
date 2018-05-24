@@ -67,11 +67,12 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$playServicesVersion"
     implementation "com.google.firebase:firebase-perf:$playServicesVersion"
     implementation "com.google.firebase:firebase-messaging:$playServicesVersion"
-    
+
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
 
     // Room
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     annotationProcessor "android.arch.persistence.room:compiler:$archRoomVersion"
 
     // LiveData and ViewModel
@@ -143,3 +144,4 @@ task customFindbugs(type: FindBugs, dependsOn: assemble) {
 check.dependsOn checkstyleCheck
 check.dependsOn customFindbugs
 customFindbugs.shouldRunAfter checkstyleCheck // because checkstyle runs faster.
+

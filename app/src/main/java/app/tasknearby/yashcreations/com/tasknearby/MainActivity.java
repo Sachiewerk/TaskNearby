@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        startActivity(new Intent(MainActivity.this, TaskCreatorNew.class));
+        finish();
+
         if (!AppUtils.hasUserSeenOnboarding(this)) {
             startActivity(new Intent(this, OnboardingActivity.class));
             // For preventing multiple instances of MainActivity and permission dialog on
