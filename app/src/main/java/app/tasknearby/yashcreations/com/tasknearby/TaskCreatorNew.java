@@ -23,10 +23,10 @@ import app.tasknearby.yashcreations.com.tasknearby.utils.WeekdayCodeUtils;
 
 public class TaskCreatorNew extends AppCompatActivity {
 
-    LinearLayout layoutNotes, layoutDateTime, layoutContentDateTime;
+    LinearLayout layoutNotes, layoutDateTime, layoutContentDateTime, layoutLocation, layoutContentLocation;
     EditText editTextNotes;
     ViewStub weekdaysStub;
-    ImageView drop1, drop2;
+    ImageView drop1, drop2, drop3;
     Switch repeatSwitch;
 
     @Override
@@ -37,10 +37,13 @@ public class TaskCreatorNew extends AppCompatActivity {
         editTextNotes = findViewById(R.id.edit_note);
         layoutDateTime = findViewById(R.id.layout_date_time);
         layoutContentDateTime = findViewById(R.id.layout_content_date_time);
+        layoutLocation = findViewById(R.id.layout_location);
+        layoutContentDateTime = findViewById(R.id.layout_content_location);
         weekdaysStub = findViewById(R.id.weekdays_stub);
         repeatSwitch = findViewById(R.id.switch_repeat);
         drop1 = findViewById(R.id.drop1);
         drop2 = findViewById(R.id.drop2);
+        drop3 = findViewById(R.id.drop3);
 
 
         repeatSwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
@@ -78,6 +81,18 @@ public class TaskCreatorNew extends AppCompatActivity {
 
                 drop2.setImageResource(R.drawable.ic_expand_arrow_26);
 
+            }
+        });
+
+        layoutLocation.setOnClickListener(v -> {
+            if(layoutContentLocation.getVisibility() == View.GONE){
+                layoutContentLocation.setVisibility(View.VISIBLE);
+                layoutContentLocation.setAnimation(slideDown);
+                drop3.setImageResource(R.drawable.ic_collapse_arrow_up_24);
+            } else {
+                layoutContentLocation.setVisibility(View.GONE);
+                layoutContentLocation.setAnimation(slideUp);
+                drop3.setImageResource(R.drawable.ic_expand_arrow_26);
             }
         });
 
