@@ -23,7 +23,8 @@ import app.tasknearby.yashcreations.com.tasknearby.utils.WeekdayCodeUtils;
 
 public class TaskCreatorNew extends AppCompatActivity {
 
-    LinearLayout layoutNotes, layoutDateTime, layoutContentDateTime, layoutLocation, layoutContentLocation;
+    LinearLayout layoutNotes, layoutDateTime, layoutContentDateTime, layoutLocation,
+            layoutContentLocation;
     EditText editTextNotes;
     ViewStub weekdaysStub;
     ImageView drop1, drop2, drop3;
@@ -37,8 +38,8 @@ public class TaskCreatorNew extends AppCompatActivity {
         editTextNotes = findViewById(R.id.edit_note);
         layoutDateTime = findViewById(R.id.layout_date_time);
         layoutContentDateTime = findViewById(R.id.layout_content_date_time);
-        layoutLocation = findViewById(R.id.layout_location);
-        layoutContentDateTime = findViewById(R.id.layout_content_location);
+        layoutLocation = findViewById(R.id.layout_location_head);
+        layoutContentLocation = findViewById(R.id.layout_content_location);
         weekdaysStub = findViewById(R.id.weekdays_stub);
         repeatSwitch = findViewById(R.id.switch_repeat);
         drop1 = findViewById(R.id.drop1);
@@ -57,13 +58,13 @@ public class TaskCreatorNew extends AppCompatActivity {
         layoutNotes.setOnClickListener(v -> {
             Toast.makeText(this, "Clicked layout", Toast.LENGTH_SHORT).show();
             if (editTextNotes.getVisibility() == View.GONE) {
-                Toast.makeText(this, "Making it visible", Toast.LENGTH_SHORT).show();
+
                 editTextNotes.setVisibility(View.VISIBLE);
                 editTextNotes.setAnimation(slideDown);
                 drop1.setImageResource(R.drawable.ic_collapse_arrow_up_24);
 
             } else {
-                Toast.makeText(this, "Making it INvisible", Toast.LENGTH_SHORT).show();
+
                 editTextNotes.setVisibility(View.GONE);
                 editTextNotes.setAnimation(slideUp);
                 drop1.setImageResource(R.drawable.ic_expand_arrow_26);
@@ -85,7 +86,7 @@ public class TaskCreatorNew extends AppCompatActivity {
         });
 
         layoutLocation.setOnClickListener(v -> {
-            if(layoutContentLocation.getVisibility() == View.GONE){
+            if (layoutContentLocation.getVisibility() == View.GONE) {
                 layoutContentLocation.setVisibility(View.VISIBLE);
                 layoutContentLocation.setAnimation(slideDown);
                 drop3.setImageResource(R.drawable.ic_collapse_arrow_up_24);
