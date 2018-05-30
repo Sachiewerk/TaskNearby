@@ -110,7 +110,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/layout_reminder_range"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_16dp"
         app:layout_constraintTop_toTopOf="@+id/layout_reminder_range"
-        app:srcCompat="@drawable/ic_grey_ruler" />
+        app:srcCompat="@drawable/ic_ruler_26" />
 
     <Switch
         android:id="@+id/switch_alarm"
