@@ -2,8 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_content_schedule"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:visibility="gone"
+    android:layout_height="match_parent">
 
     <android.support.constraint.Guideline
         android:id="@+id/guide_ver_16dp"
@@ -190,8 +192,8 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_repeat"
+    <Switch
+        android:id="@+id/switch_repeat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -208,9 +210,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_repeat"
+        app:layout_constraintBottom_toBottomOf="@+id/switch_repeat"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_16dp"
-        app:layout_constraintTop_toTopOf="@+id/tv_repeat"
+        app:layout_constraintTop_toTopOf="@+id/switch_repeat"
         app:srcCompat="@drawable/ic_repeat_grey_24dp" />
 
     <ViewStub
@@ -221,8 +223,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_repeat" />
+        app:layout_constraintStart_toStartOf="@+id/guide_ver_16dp"
+        app:layout_constraintTop_toBottomOf="@+id/switch_repeat" />
 
 
 </android.support.constraint.ConstraintLayout>

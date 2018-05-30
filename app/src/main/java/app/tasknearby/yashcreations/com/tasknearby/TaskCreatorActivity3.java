@@ -1,13 +1,17 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 
 import com.touchboarder.weekdaysbuttons.WeekdaysDataItem;
 import com.touchboarder.weekdaysbuttons.WeekdaysDataSource;
@@ -24,6 +28,11 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
     LinearLayout layoutSelectImage;
     ImageView imageSelected;
     ViewStub viewStubRepeat;
+    LinearLayout layoutTitleAttachment, layoutTitleSchedule;
+    ConstraintLayout layoutContentAttachment, layoutContentSchedule;
+    Animation slideUp, slideDown;
+    Switch switchRepeat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +43,16 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         layoutSelectImage = findViewById(R.id.layout_select_image);
         imageSelected = findViewById(R.id.image_selected_image);
         viewStubRepeat = findViewById(R.id.viewStub_repeat);
+        layoutContentAttachment = findViewById(R.id.layout_content_attachment);
+        layoutContentSchedule = findViewById(R.id.layout_content_schedule);
+        layoutTitleAttachment = findViewById(R.id.layout_title_attachment);
+        layoutTitleSchedule = findViewById(R.id.layout_title_schedule);
+        slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+        switchRepeat = findViewById(R.id.switch_repeat);
 
+        switchRepeat.setOnCheckedChangeListener((buttonView, isChecked) ->
+                viewStubRepeat.setVisibility(isChecked ? View.VISIBLE : View.GONE));
         setupWeekdayBar();
 
         layoutSelectLocation.setOnClickListener(v -> {
@@ -44,12 +62,16 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         layoutSelectImage.setOnClickListener(v -> {
             imageSelected.setVisibility(View.VISIBLE);
         });
+
+        layoutTitleAttachment.setOnClickListener(v -> {
+
+        });
     }
 
     private void setupWeekdayBar() {
         // Assumption: No day is selected initially.
         viewStubRepeat.setTag(0);
-        WeekdaysDataSource wds = new WeekdaysDataSource(this, R.id.weekdays_stub)
+        WeekdaysDataSource wds = new WeekdaysDataSource(this, R.id.viewStub_repeat)
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setUnselectedColorRes(R.color.dark_grey)
                 .start(new WeekdaysDataSource.Callback() {
