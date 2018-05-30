@@ -32,6 +32,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
     ConstraintLayout layoutContentAttachment, layoutContentSchedule;
     Animation slideUp, slideDown;
     Switch switchRepeat;
+    ImageView imageArrowAttachment, imageArrowSchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
         slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
         switchRepeat = findViewById(R.id.switch_repeat);
+        imageArrowAttachment = findViewById(R.id.image_arrow_attachment);
+        imageArrowSchedule = findViewById(R.id.image_arrow_schedule);
 
         switchRepeat.setOnCheckedChangeListener((buttonView, isChecked) ->
                 viewStubRepeat.setVisibility(isChecked ? View.VISIBLE : View.GONE));
@@ -64,6 +67,30 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         });
 
         layoutTitleAttachment.setOnClickListener(v -> {
+            if(layoutContentAttachment.getVisibility() == View.GONE) {
+                layoutContentAttachment.setVisibility(View.VISIBLE);
+                layoutContentAttachment.setAnimation(slideDown);
+                imageArrowAttachment.setImageResource(R.drawable.ic_arrow_up_grey_24dp);
+
+            } else {
+                layoutContentAttachment.setVisibility(View.GONE);
+                layoutContentAttachment.setAnimation(slideUp);
+                imageArrowAttachment.setImageResource(R.drawable.ic_arrow_down_black_24dp);
+            }
+
+        });
+
+        layoutTitleSchedule.setOnClickListener(v -> {
+            if(layoutContentSchedule.getVisibility() == View.GONE) {
+                layoutContentSchedule.setVisibility(View.VISIBLE);
+                layoutContentSchedule.setAnimation(slideDown);
+                imageArrowSchedule.setImageResource(R.drawable.ic_arrow_up_grey_24dp);
+
+            } else {
+                layoutContentSchedule.setVisibility(View.GONE);
+                layoutContentSchedule.setAnimation(slideUp);
+                imageArrowSchedule.setImageResource(R.drawable.ic_arrow_down_black_24dp);
+            }
 
         });
     }

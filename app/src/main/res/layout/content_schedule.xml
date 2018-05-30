@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_content_schedule"
     android:layout_width="match_parent"
+    android:paddingBottom="8dp"
     android:visibility="gone"
     android:layout_height="match_parent">
 
