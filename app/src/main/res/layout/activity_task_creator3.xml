@@ -86,7 +86,7 @@
                         android:layout_weight="1"
                         android:text="Attachments"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                        android:textColor="@color/teal_A700"
+                        android:textColor="@color/darker_grey"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -131,7 +131,7 @@
                         android:layout_weight="1"
                         android:text="Schedule"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                        android:textColor="@color/teal_A700"
+                        android:textColor="@color/darker_grey"
                         android:textStyle="bold" />
 
                     <ImageView
