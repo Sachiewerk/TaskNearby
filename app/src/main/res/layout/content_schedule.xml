@@ -5,7 +5,7 @@
     android:id="@+id/layout_content_schedule"
     android:layout_width="match_parent"
     android:paddingBottom="8dp"
-    android:visibility="gone"
+    android:visibility="visible"
     android:background="@color/white"
     android:layout_height="match_parent">
 
@@ -29,11 +29,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Date Interval"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
     <ImageView
         android:id="@+id/image_date"
@@ -51,7 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
@@ -100,41 +100,40 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_time_interval"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Time Interval"
-        style="@style/taskCreatorItemStyle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toBottomOf="@+id/layout_date" />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_time_interval"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:text="Time Interval"-->
+        <!--style="@style/taskCreatorItemStyle"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/layout_date" />-->
 
     <ImageView
         android:id="@+id/image_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_time_interval"
+        app:layout_constraintBottom_toBottomOf="@+id/switch_anytime"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_16dp"
-        app:layout_constraintTop_toTopOf="@+id/tv_time_interval"
+        app:layout_constraintTop_toTopOf="@+id/switch_anytime"
         app:srcCompat="@drawable/ic_clock_grey_700_24dp" />
 
     <Switch
         android:id="@+id/switch_anytime"
+        style="@style/taskCreatorItemStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Anytime"
         android:checked="true"
-        style="@style/taskCreatorItemStyle"
+        android:text="Anytime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time_interval" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <LinearLayout
@@ -196,15 +195,15 @@
 
     <Switch
         android:id="@+id/switch_repeat"
+        style="@style/taskCreatorItemStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="9dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
         android:text="Repeat"
-        style="@style/taskCreatorItemStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_date" />
 
     <ImageView
         android:id="@+id/image_repeat"
