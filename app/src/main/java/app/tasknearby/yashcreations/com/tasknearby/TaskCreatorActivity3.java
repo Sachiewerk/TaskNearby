@@ -54,6 +54,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         imageArrowAttachment = findViewById(R.id.image_arrow_attachment);
         imageArrowSchedule = findViewById(R.id.image_arrow_schedule);
 
+
         switchRepeat.setOnCheckedChangeListener((buttonView, isChecked) ->
                 viewStubRepeat.setVisibility(isChecked ? View.VISIBLE : View.GONE));
         setupWeekdayBar();
