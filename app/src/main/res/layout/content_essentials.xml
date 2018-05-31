@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -78,11 +80,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText_location_name">
+        app:layout_constraintTop_toBottomOf="@+id/divider_location">
 
         <TextView
             style="@style/taskCreatorItemStyle"
@@ -116,16 +118,18 @@
 
     <Switch
         android:id="@+id/switch_alarm"
+        style="@style/taskCreatorItemStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Alarm"
-        style="@style/taskCreatorItemStyle"
+        android:layout_marginTop="8dp"
         android:checked="true"
+        android:text="Alarm"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toBottomOf="@+id/layout_reminder_range" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_above_alarm" />
 
     <ImageView
         android:id="@+id/image_alarm"
@@ -155,6 +159,28 @@
             android:textStyle="bold"
             android:hint="Remind me about" />
     </android.support.design.widget.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/divider_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText_location_name"
+        app:srcCompat="@drawable/divider_task_item" />
+
+    <ImageView
+        android:id="@+id/divider_above_alarm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
+        app:layout_constraintTop_toBottomOf="@+id/layout_reminder_range"
+        app:srcCompat="@drawable/divider_task_item" />
 
 
 </android.support.constraint.ConstraintLayout>

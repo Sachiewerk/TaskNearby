@@ -69,12 +69,12 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         layoutTitleAttachment.setOnClickListener(v -> {
             if(layoutContentAttachment.getVisibility() == View.GONE) {
                 layoutContentAttachment.setVisibility(View.VISIBLE);
-                layoutContentAttachment.setAnimation(slideDown);
+                layoutContentAttachment.startAnimation(slideDown);
                 imageArrowAttachment.setImageResource(R.drawable.ic_arrow_up_grey_24dp);
 
             } else {
                 layoutContentAttachment.setVisibility(View.GONE);
-                layoutContentAttachment.setAnimation(slideUp);
+                layoutContentAttachment.startAnimation(slideUp);
                 imageArrowAttachment.setImageResource(R.drawable.ic_arrow_down_black_24dp);
             }
 
@@ -83,12 +83,12 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         layoutTitleSchedule.setOnClickListener(v -> {
             if(layoutContentSchedule.getVisibility() == View.GONE) {
                 layoutContentSchedule.setVisibility(View.VISIBLE);
-                layoutContentSchedule.setAnimation(slideDown);
+                layoutContentSchedule.startAnimation(slideDown);
                 imageArrowSchedule.setImageResource(R.drawable.ic_arrow_up_grey_24dp);
 
             } else {
                 layoutContentSchedule.setVisibility(View.GONE);
-                layoutContentSchedule.setAnimation(slideUp);
+                layoutContentSchedule.startAnimation(slideUp);
                 imageArrowSchedule.setImageResource(R.drawable.ic_arrow_down_black_24dp);
             }
 
