@@ -147,7 +147,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_16dp"
@@ -156,8 +155,8 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:hint="Remind me about" />
+            android:hint="Remind me about"
+            android:textStyle="bold" />
     </android.support.design.widget.TextInputLayout>
 
     <ImageView
