@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
-                        app:srcCompat="@drawable/ic_arrow_down_black_24dp" />
+                        app:srcCompat="@drawable/ic_round_keyboard_arrow_down_24px" />
                 </LinearLayout>
 
                 <include
@@ -150,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
-                        app:srcCompat="@drawable/ic_arrow_down_black_24dp" />
+                        app:srcCompat="@drawable/ic_round_keyboard_arrow_down_24px" />
                 </LinearLayout>
 
                 <include

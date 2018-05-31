@@ -70,12 +70,12 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
             if(layoutContentAttachment.getVisibility() == View.GONE) {
                 layoutContentAttachment.setVisibility(View.VISIBLE);
                 layoutContentAttachment.startAnimation(slideDown);
-                imageArrowAttachment.setImageResource(R.drawable.ic_arrow_up_grey_24dp);
+                imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
 
             } else {
                 layoutContentAttachment.setVisibility(View.GONE);
                 layoutContentAttachment.startAnimation(slideUp);
-                imageArrowAttachment.setImageResource(R.drawable.ic_arrow_down_black_24dp);
+                imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
             }
 
         });
@@ -84,12 +84,12 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
             if(layoutContentSchedule.getVisibility() == View.GONE) {
                 layoutContentSchedule.setVisibility(View.VISIBLE);
                 layoutContentSchedule.startAnimation(slideDown);
-                imageArrowSchedule.setImageResource(R.drawable.ic_arrow_up_grey_24dp);
+                imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
 
             } else {
                 layoutContentSchedule.setVisibility(View.GONE);
                 layoutContentSchedule.startAnimation(slideUp);
-                imageArrowSchedule.setImageResource(R.drawable.ic_arrow_down_black_24dp);
+                imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
             }
 
         });
