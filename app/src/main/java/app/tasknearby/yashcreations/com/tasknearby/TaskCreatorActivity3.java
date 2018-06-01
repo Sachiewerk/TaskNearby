@@ -71,6 +71,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         actionBar.setElevation(0);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
+        actionBar.setTitle("Add Task");
 
         switchRepeat.setOnCheckedChangeListener((buttonView,isChecked)->
             viewStubRepeat.setVisibility(isChecked ?View.VISIBLE :View.GONE));

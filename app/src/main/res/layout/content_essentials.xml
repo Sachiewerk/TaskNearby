@@ -68,7 +68,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
         style="@style/taskCreatorItemStyle"
-        android:textStyle="bold"
         android:text="ABC School"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
