@@ -1,7 +1,10 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.touchboarder.weekdaysbuttons.WeekdaysDataItem;
 import com.touchboarder.weekdaysbuttons.WeekdaysDataSource;
@@ -63,51 +67,67 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view_location);
 
-        switchRepeat.setOnCheckedChangeListener((buttonView, isChecked) ->
-                viewStubRepeat.setVisibility(isChecked ? View.VISIBLE : View.GONE));
-        setupWeekdayBar();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setElevation(0);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
 
-        layoutSelectLocation.setOnClickListener(v -> {
-            editTextLocation.setVisibility(View.VISIBLE);
-        });
+        switchRepeat.setOnCheckedChangeListener((buttonView,isChecked)->
+            viewStubRepeat.setVisibility(isChecked ?View.VISIBLE :View.GONE));
 
-        layoutSelectImage.setOnClickListener(v -> {
-            imageSelected.setVisibility(View.VISIBLE);
-        });
+    setupWeekdayBar();
 
-        layoutTitleAttachment.setOnClickListener(v -> {
-            if (layoutContentAttachment.getVisibility() == View.GONE) {
-                layoutContentAttachment.setVisibility(View.VISIBLE);
-                layoutContentAttachment.startAnimation(slideDown);
-                imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
+        layoutSelectLocation.setOnClickListener(v ->
 
-            } else {
-                layoutContentAttachment.setVisibility(View.GONE);
-                layoutContentAttachment.startAnimation(slideUp);
-                imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
-            }
+    {
+        editTextLocation.setVisibility(View.VISIBLE);
+    });
 
-        });
+        layoutSelectImage.setOnClickListener(v ->
 
-        layoutTitleSchedule.setOnClickListener(v -> {
-            if (layoutContentSchedule.getVisibility() == View.GONE) {
-                layoutContentSchedule.setVisibility(View.VISIBLE);
-                layoutContentSchedule.startAnimation(slideDown);
-                imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
+    {
+        imageSelected.setVisibility(View.VISIBLE);
+    });
 
-            } else {
-                layoutContentSchedule.setVisibility(View.GONE);
-                layoutContentSchedule.startAnimation(slideUp);
-                imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
-            }
+        layoutTitleAttachment.setOnClickListener(v ->
 
-        });
+    {
+        if (layoutContentAttachment.getVisibility() == View.GONE) {
+            layoutContentAttachment.setVisibility(View.VISIBLE);
+            layoutContentAttachment.startAnimation(slideDown);
+            imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
 
-        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false);
+        } else {
+            layoutContentAttachment.setVisibility(View.GONE);
+            layoutContentAttachment.startAnimation(slideUp);
+            imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
+        }
+
+    });
+
+        layoutTitleSchedule.setOnClickListener(v ->
+
+    {
+        if (layoutContentSchedule.getVisibility() == View.GONE) {
+            layoutContentSchedule.setVisibility(View.VISIBLE);
+            layoutContentSchedule.startAnimation(slideDown);
+            imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
+
+        } else {
+            layoutContentSchedule.setVisibility(View.GONE);
+            layoutContentSchedule.startAnimation(slideUp);
+            imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
+        }
+
+    });
+
+    LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this,
+            LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);
-        recyclerView.setAdapter(new RecyclerAdapter());
-    }
+        recyclerView.setAdapter(new
+
+    RecyclerAdapter());
+}
 
     private void setupWeekdayBar() {
         // Assumption: No day is selected initially.
@@ -140,31 +160,45 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         viewStubRepeat.setVisibility(View.GONE);
     }
 
-    class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.LocationViewHolder> {
+class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.LocationViewHolder> {
 
-        @NonNull
-        @Override
-        public RecyclerAdapter.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int
-                viewType) {
-            View v = getLayoutInflater().inflate(R.layout.list_item_location_chip, parent, false);
-            return new LocationViewHolder(v);
+    @NonNull
+    @Override
+    public RecyclerAdapter.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int
+            viewType) {
+        View v = getLayoutInflater().inflate(R.layout.list_item_location_chip, parent, false);
+        return new LocationViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerAdapter.LocationViewHolder holder, int
+            position) {
+        holder.bind(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return 5;
+    }
+
+    public class LocationViewHolder extends RecyclerView.ViewHolder {
+        TextView textView;
+
+        public LocationViewHolder(View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.text_view);
         }
 
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerAdapter.LocationViewHolder holder, int
-                position) {
-        }
+        public void bind(int position) {
 
-        @Override
-        public int getItemCount() {
-            return 10;
-        }
-
-        public class LocationViewHolder extends RecyclerView.ViewHolder {
-            public LocationViewHolder(View itemView) {
-                super(itemView);
+            if (position == 4) {
+                textView.setText("MORE");
+                textView.setTextColor(Color.BLUE);
+                textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
+                textView.setBackground(null);
             }
         }
     }
+}
 
 }
