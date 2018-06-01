@@ -67,6 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
+        style="@style/taskCreatorItemStyle"
+        android:textStyle="bold"
         android:text="ABC School"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +96,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:hint="75"
+            style="@style/taskCreatorItemStyle"
             android:inputType="number"/>
 
         <TextView
@@ -153,6 +156,7 @@
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
+            style="@style/taskCreatorItemStyle"
             android:layout_height="wrap_content"
             android:hint="Remind me about"
             android:textStyle="bold" />

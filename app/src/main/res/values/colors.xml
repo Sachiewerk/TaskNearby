@@ -30,6 +30,7 @@
 
 
     <color name="darker_grey">#616161</color>
+    <color name="light_grey">#909090</color>
     <color name="blue">#0000ff</color>
 
 </resources>

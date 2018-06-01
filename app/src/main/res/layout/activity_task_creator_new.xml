@@ -58,7 +58,7 @@
 
         <TextView
             android:id="@+id/text_reminder_range"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -86,7 +86,7 @@
 
         <TextView
             android:id="@+id/text_units"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -124,7 +124,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/taskCreatorItemStyle"
+                    style="@style/itemStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -175,7 +175,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/taskCreatorItemStyle"
+                    style="@style/itemStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -198,7 +198,7 @@
                 android:visibility="gone">
 
                 <Switch
-                    style="@style/taskCreatorItemStyle"
+                    style="@style/itemStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -224,7 +224,7 @@
 
                         <TextView
                             android:id="@+id/text_start_time"
-                            style="@style/taskCreatorItemStyle"
+                            style="@style/itemStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
@@ -248,7 +248,7 @@
 
                         <TextView
                             android:id="@+id/text_end_time"
-                            style="@style/taskCreatorItemStyle"
+                            style="@style/itemStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
@@ -260,7 +260,7 @@
                 </LinearLayout>
 
                 <TextView
-                    style="@style/taskCreatorItemStyle"
+                    style="@style/itemStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -286,7 +286,7 @@
 
                         <TextView
                             android:id="@+id/text_start_date"
-                            style="@style/taskCreatorItemStyle"
+                            style="@style/itemStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
@@ -310,7 +310,7 @@
 
                         <TextView
                             android:id="@+id/text_end_date"
-                            style="@style/taskCreatorItemStyle"
+                            style="@style/itemStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
@@ -336,7 +336,7 @@
 
         <Switch
             android:id="@+id/switch_repeat"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -430,7 +430,7 @@
 
         <Switch
             android:id="@+id/switch1"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -501,7 +501,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/taskCreatorItemStyle"
+                    style="@style/itemStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"

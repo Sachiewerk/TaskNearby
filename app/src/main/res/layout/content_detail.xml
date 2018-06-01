@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/text_location_name"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -49,7 +49,7 @@
 
         <TextView
             android:id="@+id/text_note"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -62,7 +62,7 @@
 
         <TextView
             android:id="@+id/text_repeat"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -76,7 +76,7 @@
 
         <TextView
             android:id="@+id/text_date_interval"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -87,7 +87,7 @@
 
         <TextView
             android:id="@+id/text_time_range"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -98,7 +98,7 @@
 
         <TextView
             android:id="@+id/text_alarm"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -111,7 +111,7 @@
 
         <TextView
             android:id="@+id/text_reminder_range"
-            style="@style/taskCreatorItemStyle"
+            style="@style/itemStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
