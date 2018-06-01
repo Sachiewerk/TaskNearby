@@ -1,10 +1,14 @@
 package app.tasknearby.yashcreations.com.tasknearby;
 
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,6 +25,8 @@ import java.util.Calendar;
 
 import app.tasknearby.yashcreations.com.tasknearby.utils.WeekdayCodeUtils;
 
+import static app.tasknearby.yashcreations.com.tasknearby.TaskCreatorActivity3.RecyclerAdapter.*;
+
 public class TaskCreatorActivity3 extends AppCompatActivity {
 
     LinearLayout layoutSelectLocation;
@@ -33,6 +39,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
     Animation slideUp, slideDown;
     Switch switchRepeat;
     ImageView imageArrowAttachment, imageArrowSchedule;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         imageArrowAttachment = findViewById(R.id.image_arrow_attachment);
         imageArrowSchedule = findViewById(R.id.image_arrow_schedule);
 
+        recyclerView = findViewById(R.id.recycler_view_location);
 
         switchRepeat.setOnCheckedChangeListener((buttonView, isChecked) ->
                 viewStubRepeat.setVisibility(isChecked ? View.VISIBLE : View.GONE));
@@ -68,7 +76,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         });
 
         layoutTitleAttachment.setOnClickListener(v -> {
-            if(layoutContentAttachment.getVisibility() == View.GONE) {
+            if (layoutContentAttachment.getVisibility() == View.GONE) {
                 layoutContentAttachment.setVisibility(View.VISIBLE);
                 layoutContentAttachment.startAnimation(slideDown);
                 imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
@@ -82,7 +90,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         });
 
         layoutTitleSchedule.setOnClickListener(v -> {
-            if(layoutContentSchedule.getVisibility() == View.GONE) {
+            if (layoutContentSchedule.getVisibility() == View.GONE) {
                 layoutContentSchedule.setVisibility(View.VISIBLE);
                 layoutContentSchedule.startAnimation(slideDown);
                 imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
@@ -94,6 +102,11 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
             }
 
         });
+
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(horizontalLayoutManager);
+        recyclerView.setAdapter(new RecyclerAdapter());
     }
 
     private void setupWeekdayBar() {
@@ -126,4 +139,32 @@ public class TaskCreatorActivity3 extends AppCompatActivity {
         // Need to explicitly make it GONE in code.
         viewStubRepeat.setVisibility(View.GONE);
     }
+
+    class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.LocationViewHolder> {
+
+        @NonNull
+        @Override
+        public RecyclerAdapter.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int
+                viewType) {
+            View v = getLayoutInflater().inflate(R.layout.list_item_location_chip, parent, false);
+            return new LocationViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerAdapter.LocationViewHolder holder, int
+                position) {
+        }
+
+        @Override
+        public int getItemCount() {
+            return 10;
+        }
+
+        public class LocationViewHolder extends RecyclerView.ViewHolder {
+            public LocationViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
+    }
+
 }
