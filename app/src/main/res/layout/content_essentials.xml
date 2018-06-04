@@ -89,6 +89,8 @@
             style="@style/taskCreatorItemStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/creator_reminder_range" />
         <EditText
             android:id="@+id/edit_text_reminder_range"
