@@ -132,7 +132,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/layout_time_interval"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -150,7 +150,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            >
 
             <TextView
                 style="@style/subtitlesStyle"
@@ -173,7 +173,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            >
 
             <TextView
                 style="@style/subtitlesStyle"
@@ -247,7 +247,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guide_ver_72dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/layout_time_interval"
         app:srcCompat="@drawable/divider_task_item" />
 
     <ImageView
