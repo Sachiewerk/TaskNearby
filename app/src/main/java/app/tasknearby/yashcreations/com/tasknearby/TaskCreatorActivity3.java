@@ -161,8 +161,12 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         timeIntervalLayout = findViewById(R.id.layout_time_interval);
         startTimeLayout = findViewById(R.id.layout_time_from);
         endTimeLayout = findViewById(R.id.layout_time_to);
+        startTimeTv = findViewById(R.id.text_time_from);
+        endTimeTv = findViewById(R.id.text_time_to);
         startDateLayout = findViewById(R.id.layout_date_from);
         endDateLayout = findViewById(R.id.layout_date_to);
+        startDateTv = findViewById(R.id.text_date_from);
+        endDateTv = findViewById(R.id.text_date_to);
         repeatSwitch = findViewById(R.id.switch_repeat);
         weekdaysStub = findViewById(R.id.viewStub_repeat);
 
@@ -192,12 +196,12 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         }));
 
         // setting time interval tags with default value
-        startTimeLayout.setTag(new LocalTime(0, 0));
-        endTimeLayout.setTag(new LocalTime(23, 59));
+        startTimeTv.setTag(new LocalTime(0, 0));
+        endTimeTv.setTag(new LocalTime(23, 59));
 
         // setting date interval tags with default value
-        startDateLayout.setTag(new LocalDate());
-        endDateLayout.setTag(null);
+        startDateTv.setTag(new LocalDate());
+        endDateTv.setTag(null);
 
         // setting repeat switch
         repeatSwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
@@ -230,6 +234,18 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.layout_select_image:
                 addTaskImage();
+                break;
+            case R.id.layout_time_from:
+                timeSelectionTriggered(startTimeTv);
+                break;
+            case R.id.layout_time_to:
+                timeSelectionTriggered(endTimeTv);
+                break;
+            case R.id.layout_date_from :
+                dateSelectionTriggered(startDateTv);
+                break;
+            case R.id.layout_date_to :
+                dateSelectionTriggered(endDateTv);
                 break;
 
         }
@@ -379,7 +395,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
     private void setupWeekdayBar() {
         // Assumption: No day is selected initially.
         weekdaysStub.setTag(0);
-        WeekdaysDataSource wds = new WeekdaysDataSource(this, R.id.weekdays_stub)
+        WeekdaysDataSource wds = new WeekdaysDataSource(this, R.id.viewStub_repeat)
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setUnselectedColorRes(R.color.dark_grey)
                 .start(new WeekdaysDataSource.Callback() {
@@ -408,6 +424,40 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         // Need to explicitly make it GONE in code.
         weekdaysStub.setVisibility(View.GONE);
     }
+
+    private void timeSelectionTriggered(TextView v) {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                (view, hourOfDay, minute) -> {
+                    Log.d(TAG, "Time selected, " + hourOfDay + ":" + minute);
+                    // storing the time object in the textView itself.
+                    LocalTime localTime = new LocalTime(hourOfDay, minute);
+                    v.setTag(localTime);
+                    // set selected Time on textView.
+                    v.setText(AppUtils.getReadableTime(TaskCreatorActivity3.this, localTime));
+                }, 12, 0, false); // time at which timepicker opens.
+        timePickerDialog.show();
+    }
+
+    /**
+     * Called when user clicks on Date display.
+     */
+    private void dateSelectionTriggered(TextView v) {
+        Calendar calendar = Calendar.getInstance();
+        // what to do when date is set.
+        DatePickerDialog.OnDateSetListener onDateSetListener = (view, year, month,
+                                                                dayOfMonth) -> {
+            calendar.set(year, month, dayOfMonth);
+            v.setTag(LocalDate.fromCalendarFields(calendar));
+            v.setText(AppUtils.getReadableDate(this, calendar.getTime()));
+            Log.d(TAG, "Date selected: " + calendar.getTime().toString());
+        };
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSetListener,
+                calendar.get(Calendar.YEAR),            // current year.
+                calendar.get(Calendar.MONTH),           // current month (0 indexed)
+                calendar.get(Calendar.DAY_OF_MONTH));   // current day.
+        datePickerDialog.show();
+    }
+
     //    LinearLayout layoutSelectLocation;
 //    EditText editTextLocation;
 //    LinearLayout layoutSelectImage;
