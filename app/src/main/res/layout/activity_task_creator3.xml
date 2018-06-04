@@ -63,13 +63,13 @@
                     android:paddingStart="16dp">
 
                     <TextView
+                        style="@style/titleItemStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
-                        android:text="Attachments"
-                        style="@style/titleItemStyle" />
+                        android:text="@string/title_attachment" />
 
                     <ImageView
                         android:id="@+id/image_arrow_attachment"
@@ -80,9 +80,42 @@
                         app:srcCompat="@drawable/ic_round_keyboard_arrow_down_24px" />
                 </LinearLayout>
 
-                <include
-                    layout="@layout/content"
-                    android:visibility="gone" />
+                <FrameLayout
+                    android:id="@+id/frame_layout_attachment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include
+                        layout="@layout/content"
+                        android:visibility="visible" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_premium_overlay_lock_attachment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/background_premium_lock"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_lock_outline_grey_600_48dp" />
+
+                        <Button
+                            android:id="@+id/button_upgrade"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/creator_action_upgrade_to_premium" />
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -114,13 +147,13 @@
                     android:paddingStart="16dp">
 
                     <TextView
+                        style="@style/titleItemStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
-                        android:text="Schedule"
-                        style="@style/titleItemStyle" />
+                        android:text="@string/title_schedule" />
 
                     <ImageView
                         android:id="@+id/image_arrow_schedule"
@@ -131,14 +164,50 @@
                         app:srcCompat="@drawable/ic_round_keyboard_arrow_down_24px" />
                 </LinearLayout>
 
-                <include
-                    layout="@layout/content_schedule"
-                    android:visibility="gone" />
+                <FrameLayout
+                    android:id="@+id/frame_layout_schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include
+                        layout="@layout/content_schedule"
+                        android:visibility="visible" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_premium_overlay_lock_schedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/background_premium_lock"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_lock_outline_grey_600_48dp" />
+
+                        <Button
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/creator_action_upgrade_to_premium" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -146,7 +215,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_background"
-            android:text="Save"
+            android:text="@string/creator_action_save"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

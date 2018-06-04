@@ -38,11 +38,11 @@
             style="@style/taskCreatorItemStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Add a note" />
+            android:hint="@string/creator_note_hint" />
     </android.support.design.widget.TextInputLayout>
 
     <ImageView
-        android:id="@+id/image_note"
+        android:id="@+id/icon_note"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginTop="16dp"
@@ -70,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Select Image" />
+            android:text="@string/creator_select_image" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/image_camera"
+        android:id="@+id/icon_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

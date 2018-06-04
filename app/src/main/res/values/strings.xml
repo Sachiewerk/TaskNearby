@@ -68,14 +68,14 @@
 
     <!--#### Task Creator screen constants ####-->
     <string name="creator_task_name_hint">Remind me about</string>
-    <string name="creator_location_title">Location</string>
+    <string name="creator_location_title">Select Location</string>
     <string name="creator_saved_place_button">Saved Places</string>
     <string name="creator_or_string">OR</string>
     <string name="creator_pick_place_button">Pick a Place</string>
     <string name="creator_location_name_hint">Location Name</string>
     <string name="creator_reminder_range">Reminder range :</string>
     <string name="creator_reminder_range_default" translatable="false">75</string>
-    <string name="creator_alarm_title">Alarm</string>
+    <string name="creator_alarm_title">Ring Alarm</string>
     <string name="creator_note_hint">Add a note</string>
     <string name="creator_time_title">Anytime</string>
     <string name="creator_time_start_title">From</string>
@@ -214,4 +214,10 @@
     <string name="preference_category_general">General</string>
     <string name="preference_category_alarms">Alarms</string>
 
+    <!--Added in task creator -->
+    <string name="title_attachment">Attachment</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="creator_action_save">Save</string>
+    <string name="creator_select_image">Select image</string>
+    <string name="creator_repeat_title">Repeat</string>
 </resources>
