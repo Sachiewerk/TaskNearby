@@ -150,7 +150,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         alarmSwitch = findViewById(R.id.switch_alarm);
         attachmentFrameLayout = findViewById(R.id.frame_layout_attachment);
         scheduleFrameLayout = findViewById(R.id.frame_layout_schedule);
-        selectImageLayout = findViewById(R.id.layout_select_location);
+        selectLocationLayout = findViewById(R.id.layout_select_location);
         selectImageLayout = findViewById(R.id.layout_select_image);
         attachmentTitleLayout = findViewById(R.id.layout_title_attachment);
         scheduleTitleLayout = findViewById(R.id.layout_title_schedule);
@@ -178,6 +178,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         endDateLayout.setOnClickListener(this);
         startTimeLayout.setOnClickListener(this);
         endTimeLayout.setOnClickListener(this);
+        selectLocationLayout.setOnClickListener(this);
 
         // setting defaults and other settings
 
@@ -246,6 +247,9 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.layout_date_to :
                 dateSelectionTriggered(endDateTv);
+                break;
+            case R.id.layout_select_location :
+                onPlacePickerRequested();
                 break;
 
         }
@@ -343,6 +347,11 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
             case REQUEST_CODE_GALLERY_IMAGE_PICKER:
                 if (resultCode == RESULT_OK) {
                     onTaskImageSelected(data);
+                }
+                break;
+            case REQUEST_CODE_PLACE_PICKER:
+                if (resultCode == RESULT_OK) {
+                    onPlacePickerSuccess(data);
                 }
                 break;
         }
@@ -457,6 +466,66 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
                 calendar.get(Calendar.DAY_OF_MONTH));   // current day.
         datePickerDialog.show();
     }
+
+    /**
+     * Triggered when the user clicks on the Pick Place button.
+     */
+    private void onPlacePickerRequested() {
+        if (!isInternetConnected())
+            return;
+        PlacePicker.IntentBuilder placePickerIntent = new PlacePicker.IntentBuilder();
+        try {
+            startActivityForResult(placePickerIntent.build(this), REQUEST_CODE_PLACE_PICKER);
+        } catch (GooglePlayServicesRepairableException e) {
+            mFirebaseAnalytics.logEvent(AnalyticsConstants.PLACE_PICKER_EXCEPTION, new Bundle());
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            mFirebaseAnalytics.logEvent(AnalyticsConstants.PLACE_PICKER_FATAL, new Bundle());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Checks for internet permission. If internet is not connected, it shows a snackbar and
+     * return false.
+     */
+    private boolean isInternetConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context
+                .CONNECTIVITY_SERVICE);
+        if (cm != null && cm.getActiveNetworkInfo() == null) {
+            // No internet connection present. Show snackbar.
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R
+                            .string.creator_no_internet_error),
+                    Snackbar.LENGTH_SHORT);
+            snackbar.show();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Initializes the location with place picker returned data. Also sets that to the UI.
+     */
+    private void onPlacePickerSuccess(Intent data) {
+        Place place = PlacePicker.getPlace(this, data);
+        // Create a new location object with use count = 1
+        mSelectedLocation = new LocationModel(place.getName().toString(),
+                place.getLatLng().latitude,
+                place.getLatLng().longitude,
+                1, 0, new LocalDate());
+        hasSelectedLocation = true;
+        onLocationSelected();
+    }
+
+    /**
+     * Sets the selected location's name to the input textView.
+     */
+    private void onLocationSelected() {
+        locationNameInput.setText(mSelectedLocation.getPlaceName());
+        locationNameInput.setVisibility(View.VISIBLE);
+    }
+
+
 
     //    LinearLayout layoutSelectLocation;
 //    EditText editTextLocation;
