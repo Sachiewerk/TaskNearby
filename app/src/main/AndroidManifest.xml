@@ -94,6 +94,9 @@
             android:name=".OnboardingActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TaskCreatorActivity3"
+            android:exported="true"
+            android:theme="@style/AppTheme"/>
 
         <service
             android:name=".services.ActivityDetectionService"
@@ -131,7 +134,7 @@
             android:value="@string/places_api_key" />
 
         <activity android:name=".TaskCreatorNew" />
-        <activity android:name=".TaskCreatorActivity3"></activity>
+
     </application>
 
 </manifest>

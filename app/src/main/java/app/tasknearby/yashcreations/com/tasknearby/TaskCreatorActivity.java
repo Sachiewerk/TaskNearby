@@ -135,7 +135,7 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
      * @return intent that can be used in startActivity.
      */
     public static Intent getEditModeIntent(Context context, long taskId) {
-        Intent intent = new Intent(context, TaskCreatorActivity.class);
+        Intent intent = new Intent(context, TaskCreatorActivity3.class);
         intent.putExtra(EXTRA_EDIT_MODE_TASK_ID, taskId);
         return intent;
     }

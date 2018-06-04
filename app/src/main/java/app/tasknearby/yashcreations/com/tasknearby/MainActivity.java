@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        startActivity(new Intent(this, TaskCreatorActivity3.class));
-        finish();
 
         if (!AppUtils.hasUserSeenOnboarding(this)) {
             startActivity(new Intent(this, OnboardingActivity.class));
@@ -106,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         setupFcm();
 
         findViewById(R.id.fab).setOnClickListener(view ->
-                startActivity(new Intent(MainActivity.this, TaskCreatorActivity.class)));
+                startActivity(new Intent(MainActivity.this, TaskCreatorActivity3.class)));
 
         getSupportFragmentManager()
                 .beginTransaction()

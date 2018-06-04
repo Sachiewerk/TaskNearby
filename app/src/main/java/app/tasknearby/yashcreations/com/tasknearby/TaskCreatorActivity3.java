@@ -22,11 +22,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -43,7 +40,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -100,9 +96,10 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
     private ViewStub weekdaysStub;
     private LinearLayout selectLocationLayout, selectImageLayout, attachmentTitleLayout,
             scheduleTitleLayout, timeIntervalLayout, startTimeLayout, endTimeLayout,
-            startDateLayout, endDateLayout;
+            startDateLayout, endDateLayout, lockLayoutAttachment, lockLayoutSchdule;
     private FrameLayout scheduleFrameLayout, attachmentFrameLayout;
     private RecyclerView locationRecyclerView;
+    private Button saveButton, upgradeAttachmentButton, upgradeScheduleButton;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -123,12 +120,36 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creator3);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mTaskRepository = new TaskRepository(getApplicationContext());
+
         setActionBar();
         // Find views and set click listeners.
         initializeViews();
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setRecentPlaces();
 
+        // check if activity has been started for editing a task.
+        if (getIntent().hasExtra(EXTRA_EDIT_MODE_TASK_ID)) {
+            long taskId = getIntent().getLongExtra(EXTRA_EDIT_MODE_TASK_ID, -1);
+            taskBeingEdited = mTaskRepository.getTaskWithId(taskId);
+            fillDataForEditing(taskBeingEdited);
+            getSupportActionBar().setTitle(getString(R.string.title_edit_task));
+        }
+
+    }
+
+    /**
+     * This will be used to get the intent to start this activity when we need to edit the task.
+     *
+     * @param context context of the calling activity.
+     * @param taskId  taskId of the task to be edited.
+     * @return intent that can be used in startActivity.
+     */
+    public static Intent getEditModeIntent(Context context, long taskId) {
+        Intent intent = new Intent(context, TaskCreatorActivity.class);
+        intent.putExtra(EXTRA_EDIT_MODE_TASK_ID, taskId);
+        return intent;
     }
 
 
@@ -139,6 +160,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         ActionBar actionBar = getSupportActionBar();
         if (null != actionBar) {
             actionBar.setElevation(0);
+            actionBar.setTitle("Add Task");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
         }
@@ -179,6 +201,11 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         repeatSwitch = findViewById(R.id.switch_repeat);
         weekdaysStub = findViewById(R.id.viewStub_repeat);
         locationRecyclerView = findViewById(R.id.recycler_view_location);
+        saveButton = findViewById(R.id.button_save);
+        upgradeAttachmentButton = findViewById(R.id.button_upgrade_attachment);
+        upgradeScheduleButton = findViewById(R.id.button_upgrade_schedule);
+        lockLayoutAttachment = findViewById(R.id.ll_premium_overlay_lock_attachment);
+        lockLayoutSchdule = findViewById(R.id.ll_premium_overlay_lock_schedule);
 
         // setting on click listeners
         attachmentTitleLayout.setOnClickListener(this);
@@ -189,6 +216,11 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         startTimeLayout.setOnClickListener(this);
         endTimeLayout.setOnClickListener(this);
         selectLocationLayout.setOnClickListener(this);
+        saveButton.setOnClickListener(this);
+        upgradeScheduleButton.setOnClickListener(this);
+        upgradeAttachmentButton.setOnClickListener(this);
+        lockLayoutAttachment.setOnClickListener(this);
+        lockLayoutSchdule.setOnClickListener(this);
 
         // setting defaults and other settings
 
@@ -260,6 +292,17 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.layout_select_location:
                 onPlacePickerRequested();
+                break;
+            case R.id.button_save:
+                saveTask();
+                break;
+            case R.id.button_upgrade_attachment:
+            case R.id.button_upgrade_schedule:
+            case R.id.ll_premium_overlay_lock_attachment:
+            case R.id.ll_premium_overlay_lock_schedule:
+                mFirebaseAnalytics.logEvent(AnalyticsConstants.PREMIUM_DIALOG_REQUESTED_BY_BUTTON,
+                        new Bundle());
+                UpgradeActivity.show(TaskCreatorActivity3.this);
                 break;
 
         }
@@ -364,6 +407,13 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
                     onPlacePickerSuccess(data);
                 }
                 break;
+            case REQUEST_CODE_LOCATION_SELECTION:
+                if (resultCode == RESULT_OK) {
+                    onSavedPlacesSuccess(data);
+                }
+                break;
+            default:
+                Log.w(TAG, "Unknown request code in onActivityResult.");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -535,13 +585,27 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         locationNameInput.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Gets the result from saved places selection activity and sets the location.
+     */
+    private void onSavedPlacesSuccess(Intent data) {
+        if (data == null || !data.hasExtra(SavedPlacesActivity.EXTRA_LOCATION_ID)) {
+            Log.w(TAG, "No location id was returned by SavedPlacesActivity");
+            return;
+        }
+        long locationId = data.getLongExtra(SavedPlacesActivity.EXTRA_LOCATION_ID, -1);
+        Log.e("shilpi", locationId + "");
+        mSelectedLocation = mTaskRepository.getLocationById(locationId);
+        hasSelectedLocation = true;
+        onLocationSelected();
+        // TODO: check this. Do we need this or not.
+        setRecentPlaces();
+    }
 
     /**
      * Set the recent places recycler view if there is any recent place present
      */
     private void setRecentPlaces() {
-        TaskRepository mTaskRepository = new TaskRepository(getApplicationContext());
-
         List<LocationModel> locations = mTaskRepository.getAllLocations();
         if (locations.size() == 0) {
             return;
@@ -554,15 +618,235 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         locationRecyclerView.setLayoutManager(horizontalLayoutManager);
-        locationRecyclerView.setAdapter(new RecyclerAdapter(locations.subList(0, 5)));
+        if (locations.size() > 5) {
+            locationRecyclerView.setAdapter(new RecyclerAdapter(locations.subList(0, 5)));
+        } else {
+            locationRecyclerView.setAdapter(new RecyclerAdapter(locations));
+        }
 
     }
+
+    /**
+     * Validates the input entered by the user.
+     */
+    private boolean isInputValid() {
+        String errorMsg;
+        if (TextUtils.isEmpty(taskNameInput.getText())) {
+            errorMsg = getString(R.string.creator_error_empty_taskname);
+        } else if (TextUtils.isEmpty(locationNameInput.getText()) || !hasSelectedLocation) {
+            errorMsg = getString(R.string.creator_error_empty_location);
+        } else if (TextUtils.isEmpty(reminderRangeInput.getText())) {
+            errorMsg = getString(R.string.creator_error_empty_range);
+        } else if (repeatSwitch.isChecked() && (int) weekdaysStub.getTag() == 0) {
+            errorMsg = getString(R.string.creator_error_no_weekday);
+        } else {
+            return true;
+        }
+        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+        return false;
+    }
+
+    private void saveTask() {
+        if (!isInputValid()) {
+            return;
+        }
+        String taskName = taskNameInput.getText().toString();
+        String locationName = locationNameInput.getText().toString();
+        int enteredReminderRange = Integer.parseInt(reminderRangeInput.getText().toString());
+        int reminderRange = (int) DistanceUtils.getDistanceToSave(this, enteredReminderRange);
+        boolean isAlarmEnabled = alarmSwitch.isChecked();
+        String imagePath = null;
+        String selectedImagePath = (String) taskImageView.getTag();
+        if (selectedImagePath != null) {
+            imagePath = selectedImagePath;
+        }
+        // There can be a case when user selects a time and then turns on the anytime switch.
+        // So, we need to check the anytime switch first.
+        LocalTime startTime, endTime;
+        if (anytimeSwitch.isChecked()) {
+            // Alarm can ring anytime. Therefore, we can set the times internally to be from
+            // 00:00 to 23:59
+            startTime = new LocalTime(0, 0);
+            endTime = new LocalTime(23, 59);
+        } else {
+            // See what times are set on the textViews.
+            startTime = (LocalTime) startTimeTv.getTag();
+            endTime = (LocalTime) endTimeTv.getTag();
+        }
+
+        LocalDate startDate = (LocalDate) startDateTv.getTag();
+        // end date will be stored as null only.
+        LocalDate endDate = (LocalDate) endDateTv.getTag();
+
+        String note = noteInput.getText().toString();
+        if (TextUtils.isEmpty(note)) {
+            note = null;
+        }
+
+        int repeatType = repeatSwitch.isChecked()
+                ? DbConstants.REPEAT_DAILY : DbConstants.NO_REPEAT;
+        int repeatCode = (int) weekdaysStub.getTag();
+
+        long locationId;
+        if (mSelectedLocation.getId() != 0
+                && mSelectedLocation.getPlaceName().equals(locationName)) {
+            // Location was selected from saved places and the name was not changed.
+            // auto-increment numbering starts from 1.
+            // We can also set place picker to return location with id = -1.
+            locationId = mSelectedLocation.getId();
+            // Since this location is already picked up from the database, we just need
+            // to update the location use count.
+            mSelectedLocation.setUseCount(mSelectedLocation.getUseCount() + 1);
+            mTaskRepository.updateLocation(mSelectedLocation);
+        } else {
+            mSelectedLocation.setPlaceName(locationName);
+            // Need to set this id because if it's a location chosen from saved places, it
+            // already has an id that causes problems in inserting it again.
+            mSelectedLocation.setId(0);
+            // TODO: Check if place with same name already exists to improve UX.
+            // Doing this when place picker gave the location. i.e. new location with use_count = 1.
+            locationId = mTaskRepository.saveLocation(mSelectedLocation);
+        }
+
+        TaskModel task = new TaskModel.Builder(this, taskName, locationId)
+                .setReminderRange(reminderRange)
+                .setIsAlarmSet(isAlarmEnabled ? 1 : 0)
+                .setImageUri(imagePath)
+                .setNote(note)
+                .setStartTime(startTime)
+                .setEndTime(endTime)
+                .setStartDate(startDate)
+                .setEndDate(endDate)
+                .setRepeatType(repeatType)
+                .setRepeatCode(repeatCode)
+                .build();
+
+        if (taskBeingEdited == null) {
+            // add new task.
+            mTaskRepository.saveTask(task);
+            logAnalytics(task);
+        } else {
+            // update task.
+            task.setId(taskBeingEdited.getId());
+            mTaskRepository.updateTask(task);
+        }
+        // Service is restarted to update tasks distance and accordingly trigger
+        // alarm/notification at that instant.
+        // TODO: This is not the optimized way. Change this later.
+        restartService();
+        finish();
+    }
+
+    /**
+     * Restarts service.
+     */
+    private void restartService() {
+        SharedPreferences defaultPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isAppEnabled = defaultPref.getString(getString(R.string.pref_status_key),
+                getString(R.string.pref_status_default)).equals(getString(R.string
+                .pref_status_enabled));
+        if (isAppEnabled) {
+            AppUtils.stopService(this);
+            AppUtils.startService(this);
+        }
+    }
+
+
+    /**
+     * Log task creation events.
+     */
+    private void logAnalytics(TaskModel task) {
+        Bundle bundle = new Bundle();
+        bundle.putString(AnalyticsConstants.ANALYTICS_PARAM_START_TIME, task.getStartTime()
+                .toString());
+        bundle.putString(AnalyticsConstants.ANALYTICS_PARAM_END_TIME, task.getEndTime().toString());
+        boolean isDeadlineSet = task.getEndDate() != null;
+        bundle.putBoolean(AnalyticsConstants.ANALYTICS_PARAM_IS_DEADLINE_SET, isDeadlineSet);
+        boolean isNoteAdded = task.getNote() != null;
+        bundle.putBoolean(AnalyticsConstants.ANALYTICS_PARAM_IS_NOTE_ADDED, isNoteAdded);
+        boolean isAnytimeOn = anytimeSwitch.isChecked();
+        bundle.putBoolean(AnalyticsConstants.ANALYTICS_PARAM_IS_ANYTIME_SET, isAnytimeOn);
+        mFirebaseAnalytics.logEvent(AnalyticsConstants.ANALYTICS_SAVE_NEW_TASK, bundle);
+    }
+
+    /**
+     * When we've a task that is being edited, we've to fill it's attributes into the input fields.
+     *
+     * @param task The task that is being edited.
+     */
+    private void fillDataForEditing(final TaskModel task) {
+        taskNameInput.setText(task.getTaskName());
+        // Set location
+        mSelectedLocation = mTaskRepository.getLocationById(task.getLocationId());
+        // Shows the location name and makes it visible.
+        onLocationSelected();
+        hasSelectedLocation = true;
+        // Set reminder range
+        reminderRangeInput.setText(String.valueOf(task.getReminderRange()));
+        // Set note
+        noteInput.setText(task.getNote());
+        // Setup time.
+        boolean anytime = task.getStartTime().equals(new LocalTime(0, 0))
+                && task.getEndTime().equals(new LocalTime(23, 59));
+        anytimeSwitch.setChecked(anytime);
+        startTimeTv.setText(AppUtils.getReadableTime(this, task.getStartTime()));
+        endTimeTv.setText(AppUtils.getReadableTime(this, task.getEndTime()));
+        startTimeTv.setTag(task.getStartTime());
+        endTimeTv.setTag(task.getEndTime());
+
+        // Set date.
+        startDateTv.setText(AppUtils.getReadableLocalDate(this, task.getStartDate()));
+        endDateTv.setText(AppUtils.getReadableLocalDate(this, task.getEndDate()));
+        startDateTv.setTag(task.getStartDate());
+        endDateTv.setTag(task.getEndDate());
+
+        // Repeat options.
+        repeatSwitch.setChecked(task.getRepeatType() == DbConstants.REPEAT_DAILY);
+        // TODO: Setup weekday options while editing(if needed). >>>
+
+        // Alarm switch
+        alarmSwitch.setChecked(task.getIsAlarmSet() != 0);
+        // Cover image
+        if (task.getImageUri() != null) {
+            taskImageView.setVisibility(View.VISIBLE);
+            taskImageView.setImageURI(Uri.parse(task.getImageUri()));
+            taskImageView.setTag(task.getImageUri());
+        }
+        mFirebaseAnalytics.logEvent(AnalyticsConstants.ANALYTICS_EDIT_TASK, new Bundle());
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Setting in onStart so that when the upgrade activity closes, the lock layout refreshes
+        // taking into account the purchase(if any).
+        setPremiumLock();
+    }
+
+    private void setPremiumLock() {
+        if (AppUtils.isPremiumUser(this)) {
+            lockLayoutSchdule.setVisibility(View.GONE);
+            lockLayoutAttachment.setVisibility(View.GONE);
+            noteInput.setFocusable(true);
+            noteInput.setFocusableInTouchMode(true);
+        } else {
+            lockLayoutSchdule.setVisibility(View.VISIBLE);
+            lockLayoutAttachment.setVisibility(View.VISIBLE);
+            noteInput.setFocusable(true);
+            // The note input can still gain focus by clicking enter button on keyboard,
+            // to avoid this, set it as not focusable.
+            noteInput.setFocusable(false);
+        }
+    }
+
 
     class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.LocationViewHolder> {
 
         private List<LocationModel> mLocations;
 
         public RecyclerAdapter(List<LocationModel> locationModels) {
+
             this.mLocations = locationModels;
         }
 
@@ -582,7 +866,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
 
         @Override
         public int getItemCount() {
-            return mLocations.size();
+            return mLocations.size() + 1;
         }
 
         public class LocationViewHolder extends RecyclerView.ViewHolder implements View
@@ -597,8 +881,8 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
 
             public void bind(int position) {
 
-                if (position == 4) {
-                    textView.setText("MORE");
+                if (position == mLocations.size()) {
+                    textView.setText("More");
                     textView.setTextColor(Color.BLUE);
                     textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
 //                    textView.setBackground(null);
@@ -611,9 +895,10 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
             public void onClick(View v) {
                 int position = getLayoutPosition();
                 if (v.getId() == R.id.text_view) {
-                    if (position == 4) {
-                        startActivity(new Intent(TaskCreatorActivity3.this, SavedPlacesActivity
-                                .class));
+                    if (position == mLocations.size()) {
+                        Intent savedPlacesIntent = new Intent(TaskCreatorActivity3.this,
+                                SavedPlacesActivity.class);
+                        startActivityForResult(savedPlacesIntent, REQUEST_CODE_LOCATION_SELECTION);
                     } else {
                         mSelectedLocation = mLocations.get(position);
                         hasSelectedLocation = true;
@@ -623,176 +908,6 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
             }
         }
 
+
     }
-
-
-    //    LinearLayout layoutSelectLocation;
-//    EditText editTextLocation;
-//    LinearLayout layoutSelectImage;
-//    ImageView imageSelected;
-//    ViewStub viewStubRepeat;
-//    LinearLayout layoutTitleAttachment, layoutTitleSchedule;
-//    ConstraintLayout layoutContentAttachment, layoutContentSchedule;
-//    Animation slideUp, slideDown;
-//    Switch switchRepeat;
-//    ImageView imageArrowAttachment, imageArrowSchedule;
-//    RecyclerView recyclerView;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_task_creator3);
-//
-//        layoutSelectLocation = findViewById(R.id.layout_select_location);
-//        editTextLocation = findViewById(R.id.editText_location_name);
-//        layoutSelectImage = findViewById(R.id.layout_select_image);
-//        imageSelected = findViewById(R.id.image_selected_image);
-//        viewStubRepeat = findViewById(R.id.viewStub_repeat);
-//        layoutContentAttachment = findViewById(R.id.layout_content_attachment);
-//        layoutContentSchedule = findViewById(R.id.layout_content_schedule);
-//        layoutTitleAttachment = findViewById(R.id.layout_title_attachment);
-//        layoutTitleSchedule = findViewById(R.id.layout_title_schedule);
-//        slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-//        slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-//        switchRepeat = findViewById(R.id.switch_repeat);
-//        imageArrowAttachment = findViewById(R.id.image_arrow_attachment);
-//        imageArrowSchedule = findViewById(R.id.image_arrow_schedule);
-//
-//        recyclerView = findViewById(R.id.recycler_view_location);
-//
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setElevation(0);
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
-//        actionBar.setTitle("Add Task");
-//
-//        switchRepeat.setOnCheckedChangeListener((buttonView,isChecked)->
-//            viewStubRepeat.setVisibility(isChecked ?View.VISIBLE :View.GONE));
-//
-//    setupWeekdayBar();
-//
-//        layoutSelectLocation.setOnClickListener(v ->
-//
-//    {
-//        editTextLocation.setVisibility(View.VISIBLE);
-//    });
-//
-//        layoutSelectImage.setOnClickListener(v ->
-//
-//    {
-//        imageSelected.setVisibility(View.VISIBLE);
-//    });
-//
-//        layoutTitleAttachment.setOnClickListener(v ->
-//
-//    {
-//        if (layoutContentAttachment.getVisibility() == View.GONE) {
-//            layoutContentAttachment.setVisibility(View.VISIBLE);
-//            layoutContentAttachment.startAnimation(slideDown);
-//            imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
-//
-//        } else {
-//            layoutContentAttachment.setVisibility(View.GONE);
-//            layoutContentAttachment.startAnimation(slideUp);
-//            imageArrowAttachment.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
-//        }
-//
-//    });
-//
-//        layoutTitleSchedule.setOnClickListener(v ->
-//
-//    {
-//        if (layoutContentSchedule.getVisibility() == View.GONE) {
-//            layoutContentSchedule.setVisibility(View.VISIBLE);
-//            layoutContentSchedule.startAnimation(slideDown);
-//            imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_up_24px);
-//
-//        } else {
-//            layoutContentSchedule.setVisibility(View.GONE);
-//            layoutContentSchedule.startAnimation(slideUp);
-//            imageArrowSchedule.setImageResource(R.drawable.ic_round_keyboard_arrow_down_24px);
-//        }
-//
-//    });
-//
-//    LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this,
-//            LinearLayoutManager.HORIZONTAL, false);
-//        recyclerView.setLayoutManager(horizontalLayoutManager);
-//        recyclerView.setAdapter(new
-//
-//    RecyclerAdapter());
-//}
-//
-//    private void setupWeekdayBar() {
-//        // Assumption: No day is selected initially.
-//        viewStubRepeat.setTag(0);
-//        WeekdaysDataSource wds = new WeekdaysDataSource(this, R.id.viewStub_repeat)
-//                .setFirstDayOfWeek(Calendar.MONDAY)
-//                .setUnselectedColorRes(R.color.dark_grey)
-//                .start(new WeekdaysDataSource.Callback() {
-//                    /**
-//                     * Called every time an item is clicked (selected or deselected).
-//                     * @param weekdaysDataItem calling getCalendarDayId() on this returns the
-//                     * day's index as in Java Calendar API. Sunday = 1, Monday = 2....
-//                     */
-//                    @Override
-//                    public void onWeekdaysItemClicked(int i, WeekdaysDataItem weekdaysDataItem) {
-//                        int dayCode = WeekdayCodeUtils
-//                                .getDayCodeByCalendarDayId(weekdaysDataItem.getCalendarDayId());
-//                        int selection = (int) viewStubRepeat.getTag();
-//                        // Doing an XOR here so that if tapped again, then the day is removed.
-//                        selection ^= dayCode;
-//                        viewStubRepeat.setTag(selection);
-//                        Log.d("Shilpi", "Selected days : " + selection);
-//                    }
-//
-//                    @Override
-//                    public void onWeekdaysSelected(int i, ArrayList<WeekdaysDataItem> arrayList) {
-//                    }
-//                });
-//        // Need to explicitly make it GONE in code.
-//        viewStubRepeat.setVisibility(View.GONE);
-//    }
-//
-//class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.LocationViewHolder> {
-//
-//    @NonNull
-//    @Override
-//    public RecyclerAdapter.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int
-//            viewType) {
-//        View v = getLayoutInflater().inflate(R.layout.list_item_location_chip, parent, false);
-//        return new LocationViewHolder(v);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull RecyclerAdapter.LocationViewHolder holder, int
-//            position) {
-//        holder.bind(position);
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return 5;
-//    }
-//
-//    public class LocationViewHolder extends RecyclerView.ViewHolder {
-//        TextView textView;
-//
-//        public LocationViewHolder(View itemView) {
-//            super(itemView);
-//            textView = itemView.findViewById(R.id.text_view);
-//        }
-//
-//        public void bind(int position) {
-//
-//            if (position == 4) {
-//                textView.setText("MORE");
-//                textView.setTextColor(Color.BLUE);
-//                textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
-//                textView.setBackground(null);
-//            }
-//        }
-//    }
-//}
-
 }
