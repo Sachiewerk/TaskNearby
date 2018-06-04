@@ -100,6 +100,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
     private FrameLayout scheduleFrameLayout, attachmentFrameLayout;
     private RecyclerView locationRecyclerView;
     private Button saveButton, upgradeAttachmentButton, upgradeScheduleButton;
+    private WeekdaysDataSource wds;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -464,7 +465,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
     private void setupWeekdayBar() {
         // Assumption: No day is selected initially.
         weekdaysStub.setTag(0);
-        WeekdaysDataSource wds = new WeekdaysDataSource(this, R.id.viewStub_repeat)
+         wds = new WeekdaysDataSource(this, R.id.viewStub_repeat)
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setUnselectedColorRes(R.color.dark_grey)
                 .start(new WeekdaysDataSource.Callback() {
@@ -630,7 +631,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
      * Validates the input entered by the user.
      */
     private boolean isInputValid() {
-        String errorMsg;
+        String errorMsg = null;
         if (TextUtils.isEmpty(taskNameInput.getText())) {
             errorMsg = getString(R.string.creator_error_empty_taskname);
         } else if (TextUtils.isEmpty(locationNameInput.getText()) || !hasSelectedLocation) {
@@ -639,10 +640,16 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
             errorMsg = getString(R.string.creator_error_empty_range);
         } else if (repeatSwitch.isChecked() && (int) weekdaysStub.getTag() == 0) {
             errorMsg = getString(R.string.creator_error_no_weekday);
+        } else if (!AppUtils.isReminderRangeValid(this, reminderRangeInput.getText().toString())) {
+
         } else {
             return true;
         }
-        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+        // If reminder range is not valid, no toast has to be shown. In that case, error msg will
+        // be empty.
+        if (errorMsg != null && !errorMsg.isEmpty()) {
+            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+        }
         return false;
     }
 
@@ -802,7 +809,15 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
 
         // Repeat options.
         repeatSwitch.setChecked(task.getRepeatType() == DbConstants.REPEAT_DAILY);
-        // TODO: Setup weekday options while editing(if needed). >>>
+        if (wds != null) {
+            int repeatCode = task.getRepeatCode();
+            weekdaysStub.setTag(repeatCode);
+            // Get the day indices to repeat.
+            ArrayList<Integer> dayIndices = WeekdayCodeUtils.getDayIndexListToRepeat(repeatCode);
+            for (int day : dayIndices) {
+                wds.setSelectedDays(day - 1);
+            }
+        }
 
         // Alarm switch
         alarmSwitch.setChecked(task.getIsAlarmSet() != 0);
