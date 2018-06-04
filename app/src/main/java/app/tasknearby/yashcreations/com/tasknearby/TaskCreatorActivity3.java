@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,12 +20,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -51,6 +56,8 @@ import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 import app.tasknearby.yashcreations.com.tasknearby.database.DbConstants;
 import app.tasknearby.yashcreations.com.tasknearby.models.LocationModel;
@@ -95,6 +102,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
             scheduleTitleLayout, timeIntervalLayout, startTimeLayout, endTimeLayout,
             startDateLayout, endDateLayout;
     private FrameLayout scheduleFrameLayout, attachmentFrameLayout;
+    private RecyclerView locationRecyclerView;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -119,6 +127,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         // Find views and set click listeners.
         initializeViews();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        setRecentPlaces();
 
     }
 
@@ -169,6 +178,7 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         endDateTv = findViewById(R.id.text_date_to);
         repeatSwitch = findViewById(R.id.switch_repeat);
         weekdaysStub = findViewById(R.id.viewStub_repeat);
+        locationRecyclerView = findViewById(R.id.recycler_view_location);
 
         // setting on click listeners
         attachmentTitleLayout.setOnClickListener(this);
@@ -242,13 +252,13 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
             case R.id.layout_time_to:
                 timeSelectionTriggered(endTimeTv);
                 break;
-            case R.id.layout_date_from :
+            case R.id.layout_date_from:
                 dateSelectionTriggered(startDateTv);
                 break;
-            case R.id.layout_date_to :
+            case R.id.layout_date_to:
                 dateSelectionTriggered(endDateTv);
                 break;
-            case R.id.layout_select_location :
+            case R.id.layout_select_location:
                 onPlacePickerRequested();
                 break;
 
@@ -525,6 +535,95 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
         locationNameInput.setVisibility(View.VISIBLE);
     }
 
+
+    /**
+     * Set the recent places recycler view if there is any recent place present
+     */
+    private void setRecentPlaces() {
+        TaskRepository mTaskRepository = new TaskRepository(getApplicationContext());
+
+        List<LocationModel> locations = mTaskRepository.getAllLocations();
+        if (locations.size() == 0) {
+            return;
+        }
+
+        locationRecyclerView.setVisibility(View.VISIBLE);
+        // Sort in descending order of use count.
+        Collections.sort(locations, (o1, o2) -> o2.getUseCount() - o1.getUseCount());
+
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        locationRecyclerView.setLayoutManager(horizontalLayoutManager);
+        locationRecyclerView.setAdapter(new RecyclerAdapter(locations.subList(0, 5)));
+
+    }
+
+    class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.LocationViewHolder> {
+
+        private List<LocationModel> mLocations;
+
+        public RecyclerAdapter(List<LocationModel> locationModels) {
+            this.mLocations = locationModels;
+        }
+
+        @NonNull
+        @Override
+        public RecyclerAdapter.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int
+                viewType) {
+            View v = getLayoutInflater().inflate(R.layout.list_item_location_chip, parent, false);
+            return new LocationViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerAdapter.LocationViewHolder holder, int
+                position) {
+            holder.bind(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mLocations.size();
+        }
+
+        public class LocationViewHolder extends RecyclerView.ViewHolder implements View
+                .OnClickListener {
+            TextView textView;
+
+            public LocationViewHolder(View itemView) {
+                super(itemView);
+                textView = itemView.findViewById(R.id.text_view);
+                textView.setOnClickListener(this);
+            }
+
+            public void bind(int position) {
+
+                if (position == 4) {
+                    textView.setText("MORE");
+                    textView.setTextColor(Color.BLUE);
+                    textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
+//                    textView.setBackground(null);
+                } else {
+                    textView.setText(mLocations.get(position).getPlaceName());
+                }
+            }
+
+            @Override
+            public void onClick(View v) {
+                int position = getLayoutPosition();
+                if (v.getId() == R.id.text_view) {
+                    if (position == 4) {
+                        startActivity(new Intent(TaskCreatorActivity3.this, SavedPlacesActivity
+                                .class));
+                    } else {
+                        mSelectedLocation = mLocations.get(position);
+                        hasSelectedLocation = true;
+                        onLocationSelected();
+                    }
+                }
+            }
+        }
+
+    }
 
 
     //    LinearLayout layoutSelectLocation;
