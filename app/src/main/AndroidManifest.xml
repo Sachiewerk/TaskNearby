@@ -96,6 +96,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TaskCreatorActivity3"
             android:exported="true"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"/>
 
         <service
