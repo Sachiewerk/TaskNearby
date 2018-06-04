@@ -907,7 +907,5 @@ public class TaskCreatorActivity3 extends AppCompatActivity implements View.OnCl
                 }
             }
         }
-
-
     }
 }
