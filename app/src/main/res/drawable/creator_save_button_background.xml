@@ -4,12 +4,12 @@
 <item
     android:state_pressed="true"
     android:state_enabled="true"
-    android:drawable="@drawable/button_pressed" />
+    android:drawable="@drawable/creator_save_button_pressed" />
 <item
     android:state_focused="true"
     android:state_enabled="true"
-    android:drawable="@drawable/button_focused" />
+    android:drawable="@drawable/creator_save_button_focused" />
 <item
     android:state_enabled="true"
-    android:drawable="@drawable/button_enabled" />
+    android:drawable="@drawable/creator_save_button_enabled" />
 </selector>

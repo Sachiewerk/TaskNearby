@@ -43,7 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- adjustResize will pan the view up when keyboard opens up. -->
 
         <activity
             android:name=".SettingsActivity"
@@ -89,6 +88,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TaskCreatorActivity"
             android:exported="true"
+            android:label="@string/title_add_new_task"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"/>
 

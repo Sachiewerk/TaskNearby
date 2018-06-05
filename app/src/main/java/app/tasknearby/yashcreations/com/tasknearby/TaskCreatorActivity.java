@@ -63,6 +63,13 @@ import app.tasknearby.yashcreations.com.tasknearby.utils.DistanceUtils;
 import app.tasknearby.yashcreations.com.tasknearby.utils.WeekdayCodeUtils;
 import app.tasknearby.yashcreations.com.tasknearby.utils.firebase.AnalyticsConstants;
 
+
+/**
+ * Creates a new task and also responsible for editing an old one. For editing, we need to use
+ * the getEditModeIntent() method to get the starting intent.
+ *
+ * @author shilpi
+ */
 public class TaskCreatorActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = TaskCreatorActivity.class.getSimpleName();
@@ -160,7 +167,6 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
         ActionBar actionBar = getSupportActionBar();
         if (null != actionBar) {
             actionBar.setElevation(0);
-            actionBar.setTitle(R.string.title_add_new_task);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
         }
@@ -464,7 +470,7 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
     private void setupWeekdayBar() {
         // Assumption: No day is selected initially.
         weekdaysStub.setTag(0);
-         wds = new WeekdaysDataSource(this, R.id.viewStub_repeat)
+        wds = new WeekdaysDataSource(this, R.id.viewStub_repeat)
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setUnselectedColorRes(R.color.dark_grey)
                 .start(new WeekdaysDataSource.Callback() {
@@ -594,7 +600,6 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
             return;
         }
         long locationId = data.getLongExtra(SavedPlacesActivity.EXTRA_LOCATION_ID, -1);
-        Log.e("shilpi", locationId + "");
         mSelectedLocation = mTaskRepository.getLocationById(locationId);
         hasSelectedLocation = true;
         onLocationSelected();

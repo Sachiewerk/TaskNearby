@@ -50,7 +50,7 @@ public class SavedPlacesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saved_places);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mTaskRepository = new TaskRepository(this);
+        mTaskRepository = new TaskRepository(getApplicationContext());
         List<LocationModel> locations = mTaskRepository.getAllLocations();
         // Create the RecyclerView adapter.
         mSavedPlacesAdapter = new SavedPlacesAdapter(locations);
@@ -64,7 +64,7 @@ public class SavedPlacesActivity extends AppCompatActivity {
     /**
      * Shows the empty view if numLocations == 0
      *
-     * @param numLocations the number of mLocations being shown.
+     * @param numLocations the number of locations being shown.
      */
     private void setEmptyView(int numLocations) {
         if (numLocations != 0) {
