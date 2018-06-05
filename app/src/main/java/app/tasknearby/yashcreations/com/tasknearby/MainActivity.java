@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         setupFcm();
 
         findViewById(R.id.fab).setOnClickListener(view ->
-                startActivity(new Intent(MainActivity.this, TaskCreatorActivity3.class)));
+                startActivity(new Intent(MainActivity.this, TaskCreatorActivity.class)));
 
         getSupportFragmentManager()
                 .beginTransaction()
