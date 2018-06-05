@@ -79,7 +79,6 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
     private static final int REQUEST_CODE_PLACE_PICKER = 0;
     private static final int REQUEST_CODE_LOCATION_SELECTION = 1;
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 2;
-    private static final int REQUEST_CODE_CAMERA_IMAGE = 3;
     private static final int REQUEST_CODE_GALLERY_IMAGE_PICKER = 4;
 
     private EditText taskNameInput;
@@ -161,7 +160,7 @@ public class TaskCreatorActivity extends AppCompatActivity implements View.OnCli
         ActionBar actionBar = getSupportActionBar();
         if (null != actionBar) {
             actionBar.setElevation(0);
-            actionBar.setTitle("Add Task");
+            actionBar.setTitle(R.string.title_add_new_task);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
         }
