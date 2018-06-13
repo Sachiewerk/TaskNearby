@@ -231,4 +231,6 @@
     <string name="app_disabled">Task Nearby has been turned off.</string>
     <string name="feature_upgrade_to_premium">Please upgrade to access this feature.</string>
 
+    <string name="about_privacy_policy_title"><u>Privacy Policy</u></string>
+    <string name="privacy_policy_url">https://sites.google.com/view/tasknearby/privacypolicy</string>
 </resources>
