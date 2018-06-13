@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content">
 
                     <include
-                        layout="@layout/content_schedule"
+                        layout="@layout/content_creator_schedule"
                         android:visibility="visible" />
 
                     <LinearLayout
