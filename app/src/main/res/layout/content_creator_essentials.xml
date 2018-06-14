@@ -49,7 +49,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_round_keyboard_arrow_right_24px" />
+            app:srcCompat="@drawable/ic_round_search_24dp" />
     </LinearLayout>
 
     <ImageView
