@@ -97,6 +97,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:hint="@string/creator_reminder_range_default"
+            android:maxLength="6"
             style="@style/taskCreatorItemStyle"
             android:inputType="number"/>
 
